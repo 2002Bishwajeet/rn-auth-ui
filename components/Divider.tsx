@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-const gray = "#d1d5db";
+const gray = "#d1d5dbAA";
 
 export const Divider = ({
   text,

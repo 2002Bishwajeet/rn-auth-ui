@@ -4,10 +4,24 @@ import { Divider } from "@/components/Divider";
 import { Input } from "@/components/Input/Input";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { convertToPascalCase } from "@/utils/utils";
+import { useCallback, useState } from "react";
 import { View } from "react-native";
 
-// Keep dummy login until the UI is completed
+type STATE = "LOGIN" | "SIGNUP";
+
 export default function Index() {
+  const [state, setState] = useState<STATE>("LOGIN");
+
+  const headerText = state === "LOGIN" ? "Log in" : "Sign up";
+  const subtitleText =
+    state === "LOGIN" ? "Welcome back!" : "Create an account";
+  const buttonText = state === "LOGIN" ? "Login" : "Create account";
+
+  const changeState = useCallback(() => {
+    setState(state === "LOGIN" ? "SIGNUP" : "LOGIN");
+  }, [state]);
+
   return (
     <ThemedView
       style={{
@@ -21,7 +35,7 @@ export default function Index() {
           }}
           type="title"
         >
-          Log in
+          {headerText}
         </ThemedText>
         <ThemedText
           style={{
@@ -29,7 +43,7 @@ export default function Index() {
           }}
           type="defaultSemiBold"
         >
-          Welcome back!
+          {subtitleText}
         </ThemedText>
       </View>
       <View
@@ -39,6 +53,9 @@ export default function Index() {
           marginBottom: 16,
         }}
       >
+        {state === "SIGNUP" && (
+          <Input hintText="Name" autoCapitalize="sentences" maxLength={32} />
+        )}
         <Input hintText="E-mail" />
         <Input hintText="Password" obscureText />
       </View>
@@ -49,15 +66,17 @@ export default function Index() {
           marginBottom: 24,
         }}
       >
-        <TextButton text="Login" onPress={() => {}} filled />
-        <TextButton text="Forgot your password?" onPress={() => {}} />
+        <TextButton text={buttonText} onPress={() => {}} filled />
+        {state === "LOGIN" && (
+          <TextButton text="Forgot your password?" onPress={() => {}} />
+        )}
       </View>
       <Divider text="OR" />
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-around",
-          marginTop: 16,
+          justifyContent: "space-between",
+          marginTop: 8,
         }}
       >
         <IconButton icon="logo-google" onPress={() => {}} text="Google" />
@@ -79,7 +98,7 @@ export default function Index() {
         >
           Don't have an account?{" "}
         </ThemedText>
-        <TextButton text="Sign up" onPress={() => {}} />
+        <TextButton text={convertToPascalCase(state)} onPress={changeState} />
       </View>
     </ThemedView>
   );
