@@ -59,7 +59,8 @@ export function Input({
         <Ionicons
           name={visible ? "eye-off" : "eye"}
           size={24}
-          color={textColor}
+          color={`${textColor}4C`}
+          suppressHighlighting
           onPress={() => setVisible(!visible)}
         />
       )}
