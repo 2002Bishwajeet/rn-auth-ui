@@ -4,7 +4,6 @@ import { Divider } from "@/components/Divider";
 import { Input } from "@/components/Input/Input";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { convertToPascalCase } from "@/utils/utils";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
 
@@ -98,7 +97,10 @@ export default function Login() {
         >
           Don't have an account?{" "}
         </ThemedText>
-        <TextButton text={convertToPascalCase(state)} onPress={changeState} />
+        <TextButton
+          text={state === "LOGIN" ? "Signup" : "Login"}
+          onPress={changeState}
+        />
       </View>
     </ThemedView>
   );
