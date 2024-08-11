@@ -3,8 +3,7 @@ import { IconButton } from "@/components/Buttons/IconButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { router } from "expo-router";
-import { View } from "react-native";
-
+import { Platform, View } from "react-native";
 export default function Index() {
   return (
     <ThemedView
@@ -16,10 +15,11 @@ export default function Index() {
         <ThemedText
           style={{
             marginTop: 32,
+            fontStyle: "italic",
           }}
           type="title"
         >
-          React Native Auth UI
+          Auth UI
         </ThemedText>
         <ThemedText
           style={{
@@ -27,7 +27,7 @@ export default function Index() {
           }}
           type="defaultSemiBold"
         >
-          A simple authentication UI built with React Native and Appwrite
+          Powered by React Native and Appwrite 🚀
         </ThemedText>
       </View>
       <View
@@ -44,6 +44,7 @@ export default function Index() {
         style={{
           alignItems: "center",
           justifyContent: "flex-end",
+          marginBottom: Platform.OS === "android" ? 16 : 0,
         }}
       >
         <IconButton

@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>myapp</string>
+          <string>rnauth</string>
           <string>com.biswa.rnauthui</string>
         </array>
       </dict>

@@ -2,6 +2,7 @@ const tintColorLight = '#c379ad';
 const tintColorDark = '#863c70';
 
 export const appwritePink = "#FD366E";
+export const reactBlue = "#58C4DC";
 
 export const Colors = {
   light: {
