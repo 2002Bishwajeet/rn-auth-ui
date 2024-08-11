@@ -8,16 +8,16 @@ PODS:
     - ExpoModulesCore
   - Expo (51.0.17):
     - ExpoModulesCore
-  - expo-dev-client (4.0.19):
+  - expo-dev-client (4.0.22):
     - EXManifests
     - expo-dev-launcher
     - expo-dev-menu
     - expo-dev-menu-interface
     - EXUpdatesInterface
-  - expo-dev-launcher (4.0.21):
+  - expo-dev-launcher (4.0.24):
     - DoubleConversion
     - EXManifests
-    - expo-dev-launcher/Main (= 4.0.21)
+    - expo-dev-launcher/Main (= 4.0.24)
     - expo-dev-menu
     - expo-dev-menu-interface
     - ExpoModulesCore
@@ -43,7 +43,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-launcher/Main (4.0.21):
+  - expo-dev-launcher/Main (4.0.24):
     - DoubleConversion
     - EXManifests
     - expo-dev-launcher/Unsafe
@@ -72,7 +72,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-launcher/Unsafe (4.0.21):
+  - expo-dev-launcher/Unsafe (4.0.24):
     - DoubleConversion
     - EXManifests
     - expo-dev-menu
@@ -100,10 +100,10 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu (5.0.15):
+  - expo-dev-menu (5.0.18):
     - DoubleConversion
-    - expo-dev-menu/Main (= 5.0.15)
-    - expo-dev-menu/ReactNativeCompatibles (= 5.0.15)
+    - expo-dev-menu/Main (= 5.0.18)
+    - expo-dev-menu/ReactNativeCompatibles (= 5.0.18)
     - glog
     - hermes-engine
     - RCT-Folly (= 2024.01.01.00)
@@ -124,7 +124,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - Yoga
   - expo-dev-menu-interface (1.8.3)
-  - expo-dev-menu/Main (5.0.15):
+  - expo-dev-menu/Main (5.0.18):
     - DoubleConversion
     - EXManifests
     - expo-dev-menu-interface
@@ -150,7 +150,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu/ReactNativeCompatibles (5.0.15):
+  - expo-dev-menu/ReactNativeCompatibles (5.0.18):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -171,7 +171,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu/SafeAreaView (5.0.15):
+  - expo-dev-menu/SafeAreaView (5.0.18):
     - DoubleConversion
     - ExpoModulesCore
     - glog
@@ -193,7 +193,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu/Vendored (5.0.15):
+  - expo-dev-menu/Vendored (5.0.18):
     - DoubleConversion
     - expo-dev-menu/SafeAreaView
     - glog
@@ -1505,6 +1505,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNSVG (15.2.0):
+    - React-Core
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
 
@@ -1586,6 +1588,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1744,6 +1747,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1754,9 +1759,9 @@ SPEC CHECKSUMS:
   EXJSONUtils: 30c17fd9cc364d722c0946a550dfbf1be92ef6a4
   EXManifests: c1fab4c3237675e7b0299ea8df0bcb14baca4f42
   Expo: 675a5642b5860771507237259da50b921c03a9f3
-  expo-dev-client: bcca43a56437123873b32a36ea31568e4212c1ca
-  expo-dev-launcher: ab76344f7a72c7b6bb255280a66202655ecf1965
-  expo-dev-menu: 9b9886b383163f14821e624f3eb51a2084491aa2
+  expo-dev-client: 05a436763435d5f50bbdbcc51adf8b0b55d8dabc
+  expo-dev-launcher: 140874617542fa32908b1710775bca3ff4bd66c6
+  expo-dev-menu: 101ecf9a992bc3d51841b31e4301f4ca54600ad4
   expo-dev-menu-interface: be32c09f1e03833050f0ee290dcc86b3ad0e73e4
   ExpoAsset: 323700f291684f110fb55f0d4022a3362ea9f875
   ExpoFileSystem: 80bfe850b1f9922c16905822ecbf97acd711dc51
@@ -1823,6 +1828,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 2282cfbcf86c360d29f44ace393203afd5c6cff7
   RNReanimated: 35f9ac9c3ac42d0497ebd1cce5c39d7687a8493e
   RNScreens: b32a9ff15bea7fcdbe5dff6477bc503f792b1208
+  RNSVG: 43b64ed39c14ce830d840903774154ca0c1f27ec
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: ae3c32c514802d30f687a04a6a35b348506d411f
 

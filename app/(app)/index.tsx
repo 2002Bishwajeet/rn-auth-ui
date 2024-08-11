@@ -1,27 +1,11 @@
+import AnimatedIcon from "@/components/AnimatedIcon";
 import { IconButton } from "@/components/Buttons/IconButton";
-import { TextButton } from "@/components/Buttons/TextButton";
-import { Divider } from "@/components/Divider";
-import { Input } from "@/components/Input/Input";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { convertToPascalCase } from "@/utils/utils";
-import { useCallback, useState } from "react";
+import { router } from "expo-router";
 import { View } from "react-native";
 
-type STATE = "LOGIN" | "SIGNUP";
-
 export default function Index() {
-  const [state, setState] = useState<STATE>("LOGIN");
-
-  const headerText = state === "LOGIN" ? "Log in" : "Sign up";
-  const subtitleText =
-    state === "LOGIN" ? "Welcome back!" : "Create an account";
-  const buttonText = state === "LOGIN" ? "Login" : "Create account";
-
-  const changeState = useCallback(() => {
-    setState(state === "LOGIN" ? "SIGNUP" : "LOGIN");
-  }, [state]);
-
   return (
     <ThemedView
       style={{
@@ -35,7 +19,7 @@ export default function Index() {
           }}
           type="title"
         >
-          {headerText}
+          React Native Auth UI
         </ThemedText>
         <ThemedText
           style={{
@@ -43,62 +27,35 @@ export default function Index() {
           }}
           type="defaultSemiBold"
         >
-          {subtitleText}
+          A simple authentication UI built with React Native and Appwrite
         </ThemedText>
-      </View>
-      <View
-        style={{
-          gap: 12,
-          marginTop: 32,
-          marginBottom: 16,
-        }}
-      >
-        {state === "SIGNUP" && (
-          <Input hintText="Name" autoCapitalize="sentences" maxLength={32} />
-        )}
-        <Input hintText="E-mail" />
-        <Input hintText="Password" obscureText />
-      </View>
-      <View
-        style={{
-          gap: 12,
-          marginTop: 14,
-          marginBottom: 24,
-        }}
-      >
-        <TextButton text={buttonText} onPress={() => {}} filled />
-        {state === "LOGIN" && (
-          <TextButton text="Forgot your password?" onPress={() => {}} />
-        )}
-      </View>
-      <Divider text="OR" />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 8,
-        }}
-      >
-        <IconButton icon="logo-google" onPress={() => {}} text="Google" />
-        <IconButton icon="logo-facebook" onPress={() => {}} text="Facebook" />
       </View>
       <View
         style={{
           flex: 1,
-          alignItems: "flex-end",
+          alignItems: "center",
           justifyContent: "center",
-          marginBottom: 24,
-          flexDirection: "row",
+          alignContent: "center",
         }}
       >
-        <ThemedText
-          style={{
-            justifyContent: "center",
+        <AnimatedIcon />
+      </View>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "flex-end",
+        }}
+      >
+        <IconButton
+          text="Get Started"
+          onPress={() => {
+            router.replace("/login?state=SIGNUP");
           }}
-        >
-          Don't have an account?{" "}
-        </ThemedText>
-        <TextButton text={convertToPascalCase(state)} onPress={changeState} />
+          icon="arrow-forward"
+          expand
+          primary
+          reverse
+        />
       </View>
     </ThemedView>
   );

@@ -11,6 +11,9 @@ type IconButtonProps = {
   darkColor?: string;
   onPress: () => void;
   filled?: boolean;
+  primary?: boolean;
+  reverse?: boolean;
+  expand?: boolean;
 };
 
 export function IconButton({
@@ -19,12 +22,19 @@ export function IconButton({
   text,
   lightColor,
   darkColor,
+  primary,
+  reverse,
+  expand,
 }: IconButtonProps) {
   const secondaryColor = useThemeColor(
     { light: lightColor, dark: darkColor },
     "secondary"
   );
   const primaryColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "secondary"
+  );
+  const tintColor = useThemeColor(
     { light: lightColor, dark: darkColor },
     "tint"
   );
@@ -33,17 +43,20 @@ export function IconButton({
       style={{
         alignContent: "center",
         alignItems: "center",
+        justifyContent: expand ? "center" : undefined,
         borderRadius: 8,
-        flexDirection: "row",
+        flexDirection: reverse ? "row-reverse" : "row",
         gap: 12,
         paddingVertical: 12,
         paddingHorizontal: 24,
         borderColor: secondaryColor,
         borderWidth: 1,
+        backgroundColor: primary ? primaryColor : undefined,
+        width: expand ? "100%" : undefined,
       }}
       onPress={onPress}
     >
-      <Ionicons name={icon as any} size={24} color={primaryColor} />
+      <Ionicons name={icon as any} size={24} color={tintColor} />
       {text && <ThemedText type="defaultSemiBold">{text}</ThemedText>}
     </TouchableOpacity>
   );

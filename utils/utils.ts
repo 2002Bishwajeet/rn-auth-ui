@@ -5,4 +5,9 @@ function convertToPascalCase(str: string): string {
         .join("");
 }
 
-export { convertToPascalCase };
+function clamp(val: number, min: number, max: number) {
+    "worklet";
+    return Math.min(Math.max(val, min), max);
+}
+
+export { convertToPascalCase, clamp };

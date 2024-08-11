@@ -7,6 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "rnauth",
     "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["**/*"],
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -26,6 +27,9 @@
     "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true
+    },
+    "packagerOpts": {
+      "config": "metro.config.js"
     }
   }
 }

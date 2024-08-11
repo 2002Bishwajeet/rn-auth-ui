@@ -16,6 +16,7 @@ type TextButtonProps = {
   onPress: () => void;
   filled?: boolean;
   unFilledStyle?: StyleProp<ViewStyle>;
+  filledStyle?: StyleProp<ViewStyle>;
 };
 
 export function TextButton({
@@ -25,6 +26,7 @@ export function TextButton({
   darkColor,
   filled,
   unFilledStyle,
+  filledStyle,
 }: TextButtonProps) {
   const primaryColor = useThemeColor(
     { light: lightColor, dark: darkColor },
@@ -37,13 +39,16 @@ export function TextButton({
   if (filled)
     return (
       <TouchableHighlight
-        style={{
-          backgroundColor: primaryColor,
-          padding: 12,
-          alignContent: "center",
-          alignItems: "center",
-          borderRadius: 8,
-        }}
+        style={[
+          {
+            backgroundColor: primaryColor,
+            padding: 12,
+            alignContent: "center",
+            alignItems: "center",
+            borderRadius: 8,
+          },
+          filledStyle,
+        ]}
         onPress={onPress}
         underlayColor={secondaryColor}
       >

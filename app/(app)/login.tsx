@@ -4,13 +4,17 @@ import { Divider } from "@/components/Divider";
 import { Input } from "@/components/Input/Input";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
 
 type STATE = "LOGIN" | "SIGNUP";
 
 export default function Login() {
-  const [state, setState] = useState<STATE>("LOGIN");
+  const params = useLocalSearchParams();
+  const currState = params["state"] as STATE;
+  console.log(params);
+  const [state, setState] = useState<STATE>(currState || "SIGNUP");
 
   const headerText = state === "LOGIN" ? "Log in" : "Sign up";
   const subtitleText =

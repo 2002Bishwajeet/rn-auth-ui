@@ -1,6 +1,8 @@
 const tintColorLight = '#c379ad';
 const tintColorDark = '#863c70';
 
+export const appwritePink = "#FD366E";
+
 export const Colors = {
   light: {
     text: '#1A131B',
@@ -11,6 +13,8 @@ export const Colors = {
     icon: '#687076',
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
+    appwrite: "#EDEDF0"
+
   },
   dark: {
     text: '#ECEDEE',
@@ -21,5 +25,6 @@ export const Colors = {
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
+    appwrite: "#19191D"
   },
 };
