@@ -29,7 +29,7 @@ export default function AnimatedIcon() {
     width: 0,
   });
 
-  const { sensor, isAvailable } = useAnimatedSensor(SensorType.GYROSCOPE);
+  const { sensor } = useAnimatedSensor(SensorType.GYROSCOPE);
 
   const pan = Gesture.Pan()
     .onStart(() => {
@@ -94,7 +94,7 @@ export default function AnimatedIcon() {
   }));
 
   const gyroscopeStyles = useAnimatedStyle(() => {
-    if (!isAvailable || isPanning.value) {
+    if (isPanning.value) {
       return {};
     }
     const { x, y } = sensor.value;
@@ -122,8 +122,8 @@ export default function AnimatedIcon() {
         }}
         style={[
           styles.box,
-          gyroscopeStyles,
           animatedStyles,
+          gyroscopeStyles,
           {
             backgroundColor: appwrite,
             shadowColor: rotate ? reactBlue : appwritePink,
