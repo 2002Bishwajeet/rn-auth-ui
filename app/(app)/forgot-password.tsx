@@ -3,13 +3,17 @@ import { TextButton } from '@/components/Buttons/TextButton';
 import { Input, InputMethods } from '@/components/Input/Input';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { router } from 'expo-router';
 import { useRef } from 'react';
 import { Platform, View } from 'react-native';
+import Toast from 'react-native-root-toast';
 
 export default function ForgotPassword() {
   const emailRef = useRef<InputMethods>(null);
 
+  const accent = useThemeColor({}, 'tint');
   const onSubmitPress = () => {
     const email = emailRef.current?.getValue();
 
@@ -19,6 +23,15 @@ export default function ForgotPassword() {
     if (!isEmailValid) {
       return;
     }
+
+    Toast.show('Reset password link sent to your email', {
+      backgroundColor: accent,
+      shadow: false,
+      containerStyle: {
+        borderRadius: 12,
+        paddingHorizontal: 16,
+      },
+    });
 
     // Send reset password link
   };
@@ -68,7 +81,7 @@ export default function ForgotPassword() {
           hintText='Enter you email address'
           autoCapitalize='none'
           autoComplete='email'
-          style={{ width: '100%' }}
+          viewStyle={{ width: '100%' }}
         />
       </View>
       <TextButton

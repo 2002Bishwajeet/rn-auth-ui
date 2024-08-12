@@ -8,7 +8,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
-import { TextInput, TextInputProps, View } from 'react-native';
+import { TextInput, TextInputProps, View, ViewStyle } from 'react-native';
 import Animated, {
   FadeIn,
   FadeInLeft,
@@ -23,6 +23,7 @@ export type InputProps = TextInputProps & {
   lightColor?: string;
   darkColor?: string;
   obscureText?: boolean;
+  viewStyle?: ViewStyle;
 };
 
 export type ValidationType = 'email' | 'password' | 'text';
@@ -42,6 +43,7 @@ export const Input = memo(
         darkColor,
         obscureText,
         required,
+        viewStyle,
         ...props
       }: InputProps,
       ref: Ref<InputMethods>,
@@ -108,12 +110,15 @@ export const Input = memo(
             entering={FadeInLeft}
             exiting={FadeOutUp}
             layout={LinearTransition}
-            style={{
-              backgroundColor: `${secondaryColor}3A`,
-              borderRadius: 8,
-              padding: 16,
-              flexDirection: 'row',
-            }}
+            style={[
+              {
+                backgroundColor: `${secondaryColor}3A`,
+                borderRadius: 8,
+                padding: 16,
+                flexDirection: 'row',
+              },
+              viewStyle,
+            ]}
           >
             <TextInput
               placeholder={hintText}
