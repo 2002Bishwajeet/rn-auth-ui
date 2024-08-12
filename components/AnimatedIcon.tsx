@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     padding: 64,
     borderRadius: 25,
     zIndex: 12,
-    elevation: 12,
+    elevation: 25,
     shadowColor: appwritePink,
     shadowOffset: {
       width: 0,
