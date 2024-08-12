@@ -10,6 +10,7 @@ import { View } from 'react-native';
 import Animated, {
   FadeIn,
   FadeOut,
+  SlideInDown,
   SlideInLeft,
   SlideOutLeft,
 } from 'react-native-reanimated';
@@ -56,6 +57,8 @@ export default function Login() {
   const subtitleText =
     state === 'LOGIN' ? 'Welcome back!' : 'Create an account';
   const buttonText = state === 'LOGIN' ? 'Login' : 'Create account';
+  const footerText =
+    state === 'LOGIN' ? 'Don’t have an account?' : 'Already have an account?';
 
   return (
     <ThemedView
@@ -166,11 +169,12 @@ export default function Login() {
         }}
       >
         <ThemedText
+          key={footerText}
           style={{
             justifyContent: 'center',
           }}
         >
-          Don't have an account?{' '}
+          {footerText}{' '}
         </ThemedText>
         <TextButton
           text={state === 'LOGIN' ? 'Signup' : 'Login'}
