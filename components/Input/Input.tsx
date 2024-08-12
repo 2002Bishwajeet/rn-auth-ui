@@ -2,7 +2,14 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { forwardRef, useState } from "react";
 import { TextInput, TextInputProps } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  FadeInLeft,
+  FadeOut,
+  FadeOutRight,
+  FadeOutUp,
+  LinearTransition,
+} from "react-native-reanimated";
 
 export type InputProps = TextInputProps & {
   hintText: string;
@@ -36,6 +43,10 @@ export function Input({
   const [visible, setVisible] = useState(false);
   return (
     <Animated.View
+      key={hintText}
+      entering={FadeInLeft}
+      exiting={FadeOutUp}
+      layout={LinearTransition}
       style={{
         backgroundColor: `${secondaryColor}3A`,
         borderRadius: 8,

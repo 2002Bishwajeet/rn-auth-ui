@@ -7,13 +7,18 @@ import { ThemedView } from "@/components/ThemedView";
 import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  SlideInLeft,
+  SlideOutLeft,
+} from "react-native-reanimated";
 
 type STATE = "LOGIN" | "SIGNUP";
 
 export default function Login() {
   const params = useLocalSearchParams();
   const currState = params["state"] as STATE;
-  console.log(params);
   const [state, setState] = useState<STATE>(currState || "SIGNUP");
 
   const headerText = state === "LOGIN" ? "Log in" : "Sign up";
@@ -33,6 +38,9 @@ export default function Login() {
     >
       <View>
         <ThemedText
+          key={headerText}
+          entering={SlideInLeft}
+          exiting={SlideOutLeft}
           style={{
             marginTop: 32,
           }}
@@ -49,7 +57,7 @@ export default function Login() {
           {subtitleText}
         </ThemedText>
       </View>
-      <View
+      <Animated.View
         style={{
           gap: 12,
           marginTop: 32,
@@ -61,7 +69,7 @@ export default function Login() {
         )}
         <Input hintText="E-mail" />
         <Input hintText="Password" obscureText />
-      </View>
+      </Animated.View>
       <View
         style={{
           gap: 12,
@@ -69,9 +77,26 @@ export default function Login() {
           marginBottom: 24,
         }}
       >
-        <TextButton text={buttonText} onPress={() => {}} filled />
+        <TextButton
+          text={buttonText}
+          onPress={() => {}}
+          filled
+          animatedTextProps={{
+            entering: FadeIn,
+            exiting: FadeOut,
+          }}
+        />
         {state === "LOGIN" && (
-          <TextButton text="Forgot your password?" onPress={() => {}} />
+          <TextButton
+            animatedProps={{
+              entering: FadeIn,
+              exiting: FadeOut,
+            }}
+            text="Forgot your password?"
+            onPress={() => {
+              router.navigate("/forgot-password");
+            }}
+          />
         )}
       </View>
       <Divider text="OR" />
