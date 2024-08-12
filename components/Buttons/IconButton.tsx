@@ -1,8 +1,8 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { TextStyle, TouchableOpacity, ViewStyle } from "react-native";
-import { ThemedText } from "../ThemedText";
-import { Colors } from "@/constants/Colors";
-import { useThemeColor } from "@/hooks/useThemeColor";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
+import { ThemedText } from '../ThemedText';
+import { Colors } from '@/constants/Colors';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 type IconButtonProps = {
   text?: string;
@@ -31,32 +31,32 @@ export function IconButton({
 }: IconButtonProps) {
   const secondaryColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "secondary"
+    'secondary',
   );
   const primaryColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "secondary"
+    'secondary',
   );
   const tintColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "tint"
+    'tint',
   );
   return (
     <TouchableOpacity
       style={[
         {
-          alignContent: "center",
-          alignItems: "center",
-          justifyContent: expand ? "center" : undefined,
+          alignContent: 'center',
+          alignItems: 'center',
+          justifyContent: expand ? 'center' : undefined,
           borderRadius: 8,
-          flexDirection: reverse ? "row-reverse" : "row",
+          flexDirection: reverse ? 'row-reverse' : 'row',
           gap: 12,
           paddingVertical: 12,
           paddingHorizontal: 24,
           borderColor: secondaryColor,
           borderWidth: 1,
           backgroundColor: primary ? primaryColor : undefined,
-          width: expand ? "100%" : undefined,
+          width: expand ? '100%' : undefined,
         },
         viewStyle,
       ]}
@@ -64,7 +64,7 @@ export function IconButton({
     >
       <Ionicons name={icon as any} size={24} color={tintColor} />
       {text && (
-        <ThemedText style={textStyle} type="defaultSemiBold">
+        <ThemedText style={textStyle} type='defaultSemiBold'>
           {text}
         </ThemedText>
       )}

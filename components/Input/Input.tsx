@@ -8,7 +8,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
-import { TextInput, TextInputProps } from 'react-native';
+import { TextInput, TextInputProps, View } from 'react-native';
 import Animated, {
   FadeIn,
   FadeInLeft,
@@ -102,7 +102,7 @@ export const Input = memo(
       );
 
       return (
-        <>
+        <View>
           <Animated.View
             key={hintText}
             entering={FadeInLeft}
@@ -147,13 +147,14 @@ export const Input = memo(
               style={{
                 color: 'red',
                 marginLeft: 8,
+                marginTop: 8,
               }}
               entering={FadeIn}
             >
               {error}
             </ThemedText>
           )}
-        </>
+        </View>
       );
     },
   ),
