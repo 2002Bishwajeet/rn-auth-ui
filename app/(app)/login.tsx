@@ -26,6 +26,9 @@ export default function Login() {
   const passwordRef = useRef<InputMethods>(null);
 
   const changeState = useCallback(() => {
+    nameRef.current?.clear();
+    emailRef.current?.clear();
+    passwordRef.current?.clear();
     setState(state === 'LOGIN' ? 'SIGNUP' : 'LOGIN');
   }, [state]);
 

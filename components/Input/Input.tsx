@@ -30,6 +30,7 @@ export type ValidationType = 'email' | 'password' | 'text';
 export type InputMethods = {
   getValue: () => string;
   validate: (type: ValidationType) => boolean;
+  clear: () => void;
 };
 
 export const Input = memo(
@@ -91,6 +92,10 @@ export const Input = memo(
               default:
                 return true;
             }
+          },
+          clear: () => {
+            setValue('');
+            setError(null);
           },
         }),
         [hintText, required, value],
