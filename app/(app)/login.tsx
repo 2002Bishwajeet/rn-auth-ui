@@ -1,34 +1,58 @@
-import { IconButton } from "@/components/Buttons/IconButton";
-import { TextButton } from "@/components/Buttons/TextButton";
-import { Divider } from "@/components/Divider";
-import { Input } from "@/components/Input/Input";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { router, useLocalSearchParams } from "expo-router";
-import { useCallback, useState } from "react";
-import { View } from "react-native";
+import { IconButton } from '@/components/Buttons/IconButton';
+import { TextButton } from '@/components/Buttons/TextButton';
+import { Divider } from '@/components/Divider';
+import { Input, InputMethods } from '@/components/Input/Input';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useCallback, useRef, useState } from 'react';
+import { View } from 'react-native';
 import Animated, {
   FadeIn,
   FadeOut,
   SlideInLeft,
   SlideOutLeft,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
-type STATE = "LOGIN" | "SIGNUP";
+type STATE = 'LOGIN' | 'SIGNUP';
 
 export default function Login() {
   const params = useLocalSearchParams();
-  const currState = params["state"] as STATE;
-  const [state, setState] = useState<STATE>(currState || "SIGNUP");
+  const currState = params['state'] as STATE | undefined;
+  const [state, setState] = useState<STATE>(currState || 'SIGNUP');
 
-  const headerText = state === "LOGIN" ? "Log in" : "Sign up";
-  const subtitleText =
-    state === "LOGIN" ? "Welcome back!" : "Create an account";
-  const buttonText = state === "LOGIN" ? "Login" : "Create account";
+  const nameRef = useRef<InputMethods>(null);
+  const emailRef = useRef<InputMethods>(null);
+  const passwordRef = useRef<InputMethods>(null);
 
   const changeState = useCallback(() => {
-    setState(state === "LOGIN" ? "SIGNUP" : "LOGIN");
+    setState(state === 'LOGIN' ? 'SIGNUP' : 'LOGIN');
   }, [state]);
+
+  const onSubmitPress = () => {
+    const name = nameRef.current?.getValue();
+    const email = emailRef.current?.getValue();
+    const password = passwordRef.current?.getValue();
+
+    // Validate email and password
+    const isEmailValid = emailRef.current?.validate('email');
+    const isPasswordValid = passwordRef.current?.validate('password');
+
+    if (!isEmailValid || !isPasswordValid) {
+      return;
+    }
+
+    if (state === 'LOGIN') {
+      // Login logic
+    } else {
+      // Signup logic
+    }
+  };
+
+  const headerText = state === 'LOGIN' ? 'Log in' : 'Sign up';
+  const subtitleText =
+    state === 'LOGIN' ? 'Welcome back!' : 'Create an account';
+  const buttonText = state === 'LOGIN' ? 'Login' : 'Create account';
 
   return (
     <ThemedView
@@ -44,7 +68,7 @@ export default function Login() {
           style={{
             marginTop: 32,
           }}
-          type="title"
+          type='title'
         >
           {headerText}
         </ThemedText>
@@ -52,7 +76,7 @@ export default function Login() {
           style={{
             marginTop: 8,
           }}
-          type="defaultSemiBold"
+          type='defaultSemiBold'
         >
           {subtitleText}
         </ThemedText>
@@ -64,11 +88,30 @@ export default function Login() {
           marginBottom: 16,
         }}
       >
-        {state === "SIGNUP" && (
-          <Input hintText="Name" autoCapitalize="sentences" maxLength={32} />
+        {state === 'SIGNUP' && (
+          <Input
+            ref={nameRef}
+            hintText='Name'
+            autoCapitalize='sentences'
+            maxLength={32}
+          />
         )}
-        <Input hintText="E-mail" />
-        <Input hintText="Password" obscureText />
+        <Input
+          ref={emailRef}
+          hintText='E-mail'
+          inputMode='email'
+          autoComplete='email'
+          autoCapitalize='none'
+          required
+        />
+        <Input
+          ref={passwordRef}
+          hintText='Password'
+          autoComplete={state === 'LOGIN' ? 'current-password' : 'new-password'}
+          autoCapitalize='none'
+          obscureText
+          required
+        />
       </Animated.View>
       <View
         style={{
@@ -79,55 +122,55 @@ export default function Login() {
       >
         <TextButton
           text={buttonText}
-          onPress={() => {}}
+          onPress={onSubmitPress}
           filled
           animatedTextProps={{
             entering: FadeIn,
             exiting: FadeOut,
           }}
         />
-        {state === "LOGIN" && (
+        {state === 'LOGIN' && (
           <TextButton
             animatedProps={{
               entering: FadeIn,
               exiting: FadeOut,
             }}
-            text="Forgot your password?"
+            text='Forgot your password?'
             onPress={() => {
-              router.navigate("/forgot-password");
+              router.navigate('/forgot-password');
             }}
           />
         )}
       </View>
-      <Divider text="OR" />
+      <Divider text='OR' />
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
+          flexDirection: 'row',
+          justifyContent: 'space-between',
           marginTop: 8,
         }}
       >
-        <IconButton icon="logo-google" onPress={() => {}} text="Google" />
-        <IconButton icon="logo-facebook" onPress={() => {}} text="Facebook" />
+        <IconButton icon='logo-google' onPress={() => {}} text='Google' />
+        <IconButton icon='logo-facebook' onPress={() => {}} text='Facebook' />
       </View>
       <View
         style={{
           flex: 1,
-          alignItems: "flex-end",
-          justifyContent: "center",
+          alignItems: 'flex-end',
+          justifyContent: 'center',
           marginBottom: 24,
-          flexDirection: "row",
+          flexDirection: 'row',
         }}
       >
         <ThemedText
           style={{
-            justifyContent: "center",
+            justifyContent: 'center',
           }}
         >
-          Don't have an account?{" "}
+          Don't have an account?{' '}
         </ThemedText>
         <TextButton
-          text={state === "LOGIN" ? "Signup" : "Login"}
+          text={state === 'LOGIN' ? 'Signup' : 'Login'}
           onPress={changeState}
         />
       </View>

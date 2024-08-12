@@ -1,80 +1,155 @@
-import { useThemeColor } from "@/hooks/useThemeColor";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import React, { forwardRef, useState } from "react";
-import { TextInput, TextInputProps } from "react-native";
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { isValidEmail } from '@/utils/utils';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import React, {
+  forwardRef,
+  memo,
+  Ref,
+  useImperativeHandle,
+  useState,
+} from 'react';
+import { TextInput, TextInputProps } from 'react-native';
 import Animated, {
   FadeIn,
   FadeInLeft,
-  FadeOut,
-  FadeOutRight,
   FadeOutUp,
   LinearTransition,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
+import { ThemedText } from '../ThemedText';
 
 export type InputProps = TextInputProps & {
   hintText: string;
+  required?: boolean;
   lightColor?: string;
   darkColor?: string;
   obscureText?: boolean;
 };
 
-export function Input({
-  hintText,
-  lightColor,
-  darkColor,
-  obscureText,
-  ...props
-}: InputProps) {
-  const secondaryColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "secondary"
-  );
+export type ValidationType = 'email' | 'password' | 'text';
 
-  const textColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "text"
-  );
+export type InputMethods = {
+  getValue: () => string;
+  validate: (type: ValidationType) => boolean;
+};
 
-  const accentColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "tint"
-  );
+export const Input = memo(
+  forwardRef(
+    (
+      {
+        hintText,
+        lightColor,
+        darkColor,
+        obscureText,
+        required,
+        ...props
+      }: InputProps,
+      ref: Ref<InputMethods>,
+    ) => {
+      const secondaryColor = useThemeColor(
+        { light: lightColor, dark: darkColor },
+        'secondary',
+      );
 
-  const [visible, setVisible] = useState(false);
-  return (
-    <Animated.View
-      key={hintText}
-      entering={FadeInLeft}
-      exiting={FadeOutUp}
-      layout={LinearTransition}
-      style={{
-        backgroundColor: `${secondaryColor}3A`,
-        borderRadius: 8,
-        padding: 16,
-        flexDirection: "row",
-      }}
-    >
-      <TextInput
-        placeholder={hintText}
-        placeholderTextColor={`${textColor}4C`}
-        selectionColor={accentColor}
-        style={{
-          color: textColor,
-          fontSize: 16,
-          flex: 1,
-        }}
-        secureTextEntry={obscureText && !visible}
-        {...props}
-      />
-      {obscureText && (
-        <Ionicons
-          name={visible ? "eye-off" : "eye"}
-          size={24}
-          color={`${textColor}4C`}
-          suppressHighlighting
-          onPress={() => setVisible(!visible)}
-        />
-      )}
-    </Animated.View>
-  );
-}
+      const textColor = useThemeColor(
+        { light: lightColor, dark: darkColor },
+        'text',
+      );
+
+      const accentColor = useThemeColor(
+        { light: lightColor, dark: darkColor },
+        'tint',
+      );
+
+      const [visible, setVisible] = useState(false);
+      const [value, setValue] = useState<string>();
+      const [error, setError] = useState<string | null>();
+
+      useImperativeHandle(
+        ref,
+        () => ({
+          getValue: () => {
+            return value || '';
+          },
+          validate: (type: ValidationType) => {
+            if (!value && required) {
+              setError(`${hintText} cannot be empty`);
+              return false;
+            }
+            switch (type) {
+              case 'email':
+                if (!isValidEmail(value || '')) {
+                  setError('Invalid email address');
+                  return false;
+                }
+                return true;
+              case 'password':
+                if ((value?.length ?? 0) < 8) {
+                  setError('Password must be at least 8 characters long');
+                  return false;
+                }
+                return true;
+              default:
+                return true;
+            }
+          },
+        }),
+        [hintText, required, value],
+      );
+
+      return (
+        <>
+          <Animated.View
+            key={hintText}
+            entering={FadeInLeft}
+            exiting={FadeOutUp}
+            layout={LinearTransition}
+            style={{
+              backgroundColor: `${secondaryColor}3A`,
+              borderRadius: 8,
+              padding: 16,
+              flexDirection: 'row',
+            }}
+          >
+            <TextInput
+              placeholder={hintText}
+              placeholderTextColor={`${textColor}4C`}
+              selectionColor={accentColor}
+              value={value}
+              onChangeText={e => {
+                if (error) setError(null);
+                return setValue(e);
+              }}
+              style={{
+                color: textColor,
+                fontSize: 16,
+                flex: 1,
+              }}
+              secureTextEntry={obscureText && !visible}
+              {...props}
+            />
+            {obscureText && (
+              <Ionicons
+                name={visible ? 'eye-off' : 'eye'}
+                size={24}
+                color={`${textColor}4C`}
+                suppressHighlighting
+                onPress={() => setVisible(!visible)}
+              />
+            )}
+          </Animated.View>
+          {error && (
+            <ThemedText
+              style={{
+                color: 'red',
+                marginLeft: 8,
+              }}
+              entering={FadeIn}
+            >
+              {error}
+            </ThemedText>
+          )}
+        </>
+      );
+    },
+  ),
+);

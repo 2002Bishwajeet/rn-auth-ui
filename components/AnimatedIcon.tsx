@@ -1,5 +1,5 @@
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { StyleSheet } from "react-native";
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { StyleSheet } from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -9,15 +9,15 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-} from "react-native-reanimated";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import AppwriteIcon from "./AppwriteIcon";
-import { appwritePink, reactBlue } from "@/constants/Colors";
-import { useState } from "react";
-import ReactIcon from "./ReactIcon";
+} from 'react-native-reanimated';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import AppwriteIcon from './AppwriteIcon';
+import { appwritePink, reactBlue } from '@/constants/Colors';
+import { useState } from 'react';
+import ReactIcon from './ReactIcon';
 
 export default function AnimatedIcon() {
-  const appwrite = useThemeColor({}, "appwrite");
+  const appwrite = useThemeColor({}, 'appwrite');
   const rotateX = useSharedValue(0);
   const rotateY = useSharedValue(0);
   const offsetWidth = useSharedValue(0);
@@ -35,7 +35,7 @@ export default function AnimatedIcon() {
     .onStart(() => {
       isPanning.value = true;
     })
-    .onUpdate((e) => {
+    .onUpdate(e => {
       // X Degree should rotate maximum +-30 degrees
       const x = e.x - boxSize.value.width / 2;
       const y = e.y - boxSize.value.height / 2;
@@ -43,27 +43,27 @@ export default function AnimatedIcon() {
         y,
         [-boxSize.value.height / 2, boxSize.value.height / 2],
         [-20, 20],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       );
       // Y Degree should rotate maximum +-10 degrees
       rotateY.value = interpolate(
         x,
         [-boxSize.value.width / 2, boxSize.value.width / 2],
         [-25, 25],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       );
 
       offsetHeight.value = interpolate(
         e.translationY,
         [-boxSize.value.height, boxSize.value.height],
         [-25, 25],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       );
       offsetWidth.value = interpolate(
         e.translationX,
         [-boxSize.value.width, boxSize.value.width],
         [-25, 25],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       );
     })
     .onEnd(() => {
@@ -114,7 +114,7 @@ export default function AnimatedIcon() {
   return (
     <GestureDetector gesture={composed}>
       <Animated.View
-        onLayout={(e) => {
+        onLayout={e => {
           boxSize.value = {
             height: e.nativeEvent.layout.height,
             width: e.nativeEvent.layout.width,
@@ -138,9 +138,9 @@ export default function AnimatedIcon() {
 
 const styles = StyleSheet.create({
   box: {
-    alignContent: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 64,
     borderRadius: 25,
     zIndex: 12,
