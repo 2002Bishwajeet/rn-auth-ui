@@ -1,7 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 import { ThemedText } from '../ThemedText';
-import { Colors } from '@/constants/Colors';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 type IconButtonProps = {
@@ -29,32 +28,23 @@ export function IconButton({
   textStyle,
   viewStyle,
 }: IconButtonProps) {
-  const secondaryColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    'secondary',
-  );
-  const primaryColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    'secondary',
-  );
-  const tintColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    'tint',
-  );
+  const secondaryColor = useThemeColor({ light: lightColor, dark: darkColor }, 'secondary');
+  const primaryColor = useThemeColor({ light: lightColor, dark: darkColor }, 'secondary');
+  const tintColor = useThemeColor({ light: lightColor, dark: darkColor }, 'tint');
   return (
     <TouchableOpacity
       style={[
         {
           alignContent: 'center',
           alignItems: 'center',
-          justifyContent: expand ? 'center' : undefined,
           borderRadius: 8,
-          flexDirection: reverse ? 'row-reverse' : 'row',
           gap: 12,
           paddingVertical: 12,
           paddingHorizontal: 24,
-          borderColor: secondaryColor,
           borderWidth: 1,
+          borderColor: secondaryColor,
+          justifyContent: expand ? 'center' : undefined,
+          flexDirection: reverse ? 'row-reverse' : 'row',
           backgroundColor: primary ? primaryColor : undefined,
           width: expand ? '100%' : undefined,
         },

@@ -1,12 +1,6 @@
-import {
-  DimensionValue,
-  View,
-  ViewStyle,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { DimensionValue, View, ViewStyle, Text, StyleSheet } from 'react-native';
 
-const gray = "#d1d5dbAA";
+const gray = '#d1d5dbAA';
 
 export const Divider = ({
   text,
@@ -53,9 +47,9 @@ export const Divider = ({
 
 const styles = StyleSheet.create({
   default: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginVertical: 10,
   },
 });

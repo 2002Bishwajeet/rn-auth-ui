@@ -1,20 +1,9 @@
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { isValidEmail } from '@/utils/utils';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import React, {
-  forwardRef,
-  memo,
-  Ref,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import React, { forwardRef, memo, Ref, useImperativeHandle, useState } from 'react';
 import { TextInput, TextInputProps, View, ViewStyle } from 'react-native';
-import Animated, {
-  FadeIn,
-  FadeInLeft,
-  FadeOutUp,
-  LinearTransition,
-} from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInLeft, FadeOutUp, LinearTransition } from 'react-native-reanimated';
 import { ThemedText } from '../ThemedText';
 
 export type InputProps = TextInputProps & {
@@ -37,31 +26,14 @@ export type InputMethods = {
 export const Input = memo(
   forwardRef(
     (
-      {
-        hintText,
-        lightColor,
-        darkColor,
-        obscureText,
-        required,
-        viewStyle,
-        ...props
-      }: InputProps,
+      { hintText, lightColor, darkColor, obscureText, required, viewStyle, ...props }: InputProps,
       ref: Ref<InputMethods>,
     ) => {
-      const secondaryColor = useThemeColor(
-        { light: lightColor, dark: darkColor },
-        'secondary',
-      );
+      const secondaryColor = useThemeColor({ light: lightColor, dark: darkColor }, 'secondary');
 
-      const textColor = useThemeColor(
-        { light: lightColor, dark: darkColor },
-        'text',
-      );
+      const textColor = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
-      const accentColor = useThemeColor(
-        { light: lightColor, dark: darkColor },
-        'tint',
-      );
+      const accentColor = useThemeColor({ light: lightColor, dark: darkColor }, 'tint');
 
       const [visible, setVisible] = useState(false);
       const [value, setValue] = useState<string>();

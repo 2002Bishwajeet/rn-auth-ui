@@ -7,7 +7,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { router } from 'expo-router';
 import { useRef } from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import Toast from 'react-native-root-toast';
 
 export default function ForgotPassword() {
@@ -51,12 +51,7 @@ export default function ForgotPassword() {
         })}
         expand={false}
         onPress={() => router.back()}
-        viewStyle={{
-          marginTop: 24,
-          marginBottom: 36,
-          paddingHorizontal: 8,
-          paddingVertical: 6,
-        }}
+        viewStyle={styles.buttonView}
       />
       <View
         style={{
@@ -71,8 +66,7 @@ export default function ForgotPassword() {
         >
           <ThemedText type='title'>Forgot Password?</ThemedText>
           <ThemedText>
-            Don't worry! Just fill in your email and we'll send you a link to
-            reset your password.
+            Don't worry! Just fill in your email and we'll send you a link to reset your password.
           </ThemedText>
         </View>
 
@@ -93,3 +87,12 @@ export default function ForgotPassword() {
     </ThemedView>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonView: {
+    marginTop: 24,
+    marginBottom: 36,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
+});

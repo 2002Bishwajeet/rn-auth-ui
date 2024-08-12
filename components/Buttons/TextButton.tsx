@@ -4,11 +4,11 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   ViewStyle,
-} from "react-native";
-import { ThemedText } from "../ThemedText";
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { Colors } from "@/constants/Colors";
-import Animated, { AnimatedProps } from "react-native-reanimated";
+} from 'react-native';
+import { ThemedText } from '../ThemedText';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { Colors } from '@/constants/Colors';
+import Animated, { AnimatedProps } from 'react-native-reanimated';
 
 type TextButtonProps = {
   text: string;
@@ -33,14 +33,8 @@ export function TextButton({
   animatedProps,
   animatedTextProps,
 }: TextButtonProps) {
-  const primaryColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "primary"
-  );
-  const secondaryColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "secondary"
-  );
+  const primaryColor = useThemeColor({ light: lightColor, dark: darkColor }, 'primary');
+  const secondaryColor = useThemeColor({ light: lightColor, dark: darkColor }, 'secondary');
   if (filled)
     return (
       <TouchableHighlight
@@ -48,8 +42,8 @@ export function TextButton({
           {
             backgroundColor: primaryColor,
             padding: 12,
-            alignContent: "center",
-            alignItems: "center",
+            alignContent: 'center',
+            alignItems: 'center',
             borderRadius: 8,
           },
           filledStyle,
@@ -61,7 +55,7 @@ export function TextButton({
           style={{
             color: Colors.dark.text,
           }}
-          type="defaultSemiBold"
+          type='defaultSemiBold'
           {...animatedTextProps}
         >
           {text}
@@ -74,8 +68,8 @@ export function TextButton({
       <TouchableOpacity
         style={[
           {
-            alignContent: "center",
-            alignItems: "center",
+            alignContent: 'center',
+            alignItems: 'center',
             borderRadius: 8,
           },
           unFilledStyle,
@@ -86,7 +80,7 @@ export function TextButton({
           style={{
             color: primaryColor,
           }}
-          type="default"
+          type='default'
           {...animatedTextProps}
         >
           {text}

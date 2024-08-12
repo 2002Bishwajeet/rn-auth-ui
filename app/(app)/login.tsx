@@ -54,11 +54,9 @@ export default function Login() {
   };
 
   const headerText = state === 'LOGIN' ? 'Log in' : 'Sign up';
-  const subtitleText =
-    state === 'LOGIN' ? 'Welcome back!' : 'Create an account';
+  const subtitleText = state === 'LOGIN' ? 'Welcome back!' : 'Create an account';
   const buttonText = state === 'LOGIN' ? 'Login' : 'Create account';
-  const footerText =
-    state === 'LOGIN' ? 'Don’t have an account?' : 'Already have an account?';
+  const footerText = state === 'LOGIN' ? 'Don’t have an account?' : 'Already have an account?';
 
   return (
     <ThemedView
@@ -95,12 +93,7 @@ export default function Login() {
         }}
       >
         {state === 'SIGNUP' && (
-          <Input
-            ref={nameRef}
-            hintText='Name'
-            autoCapitalize='sentences'
-            maxLength={32}
-          />
+          <Input ref={nameRef} hintText='Name' autoCapitalize='sentences' maxLength={32} />
         )}
         <Input
           ref={emailRef}
@@ -176,10 +169,7 @@ export default function Login() {
         >
           {footerText}{' '}
         </ThemedText>
-        <TextButton
-          text={state === 'LOGIN' ? 'Signup' : 'Login'}
-          onPress={changeState}
-        />
+        <TextButton text={state === 'LOGIN' ? 'Signup' : 'Login'} onPress={changeState} />
       </View>
     </ThemedView>
   );
