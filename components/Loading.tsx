@@ -1,10 +1,11 @@
 import { appwritePink } from '@/constants/Colors';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ThemedView } from './ThemedView';
 export default function Loader() {
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <ActivityIndicator size='large' color={appwritePink} />
-    </View>
+    </ThemedView>
   );
 }
 
