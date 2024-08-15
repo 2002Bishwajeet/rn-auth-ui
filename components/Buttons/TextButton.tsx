@@ -2,9 +2,12 @@ import { ActivityIndicator, StyleProp, TextStyle, TouchableOpacity, ViewStyle } 
 import { ThemedText } from '../ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Colors } from '@/constants/Colors';
-import Animated, { AnimatedProps, FadeOut } from 'react-native-reanimated';
-import { useState } from 'react';
+import Animated, { AnimatedProps, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { useState } from 'react';
+
+const AnimatedTouchableHighlight = Animated.createAnimatedComponent(TouchableHighlight);
 
 type TextButtonProps = {
   text: string;
@@ -36,7 +39,6 @@ export function TextButton({
   const [loading, setLoading] = useState(false);
 
   const handlePress = async () => {
-    console.log(loading, showLoaderOnPress);
     if (showLoaderOnPress) {
       setLoading(true);
       await onPress();
@@ -46,27 +48,40 @@ export function TextButton({
     }
   };
 
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      borderRadius: withTiming(loading ? 98 : 8),
+      width: withTiming(loading ? '45%' : '100%'),
+    };
+  });
+
   if (filled)
     return (
-      <TouchableHighlight
+      <AnimatedTouchableHighlight
+        disabled={loading}
         style={[
           {
             backgroundColor: primaryColor,
             padding: 12,
             alignContent: 'center',
             alignItems: 'center',
-            borderRadius: 8,
+            alignSelf: 'center',
           },
           filledStyle,
+          animatedStyle,
         ]}
         onPress={handlePress}
         underlayColor={secondaryColor}
       >
         {loading ? (
-          <ActivityIndicator size={'small'} />
+          <ActivityIndicator
+            size={'small'}
+            style={{
+              marginVertical: 2,
+            }}
+          />
         ) : (
           <ThemedText
-            exiting={FadeOut}
             style={{
               color: Colors.dark.text,
             }}
@@ -76,7 +91,7 @@ export function TextButton({
             {text}
           </ThemedText>
         )}
-      </TouchableHighlight>
+      </AnimatedTouchableHighlight>
     );
 
   return (

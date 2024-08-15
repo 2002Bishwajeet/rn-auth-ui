@@ -40,10 +40,10 @@ export default function Login() {
     const password = passwordRef.current?.getValue();
 
     // Validate email and password
-    const isEmailValid = email && emailRef.current?.validate('email');
-    const isPasswordValid = password && passwordRef.current?.validate('password');
+    const isEmailValid = emailRef.current?.validate('email');
+    const isPasswordValid = passwordRef.current?.validate('password');
 
-    if (!isEmailValid || !isPasswordValid) {
+    if (!email || !isEmailValid || !password || !isPasswordValid) {
       return;
     }
 
@@ -147,18 +147,11 @@ export default function Login() {
           gap: 12,
           marginTop: 14,
           marginBottom: 24,
+          alignContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <TextButton
-          text={buttonText}
-          onPress={onSubmitPress}
-          filled
-          showLoaderOnPress
-          animatedTextProps={{
-            entering: FadeIn,
-            exiting: FadeOut,
-          }}
-        />
+        <TextButton text={buttonText} onPress={onSubmitPress} filled showLoaderOnPress />
         {state === 'LOGIN' && (
           <TextButton
             animatedProps={{
