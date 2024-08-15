@@ -158,7 +158,7 @@ export default function Login() {
             }}
             text='Forgot your password?'
             onPress={() => {
-              router.navigate('/reset-password');
+              router.navigate('/forgot-password');
             }}
           />
         )}

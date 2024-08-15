@@ -79,6 +79,8 @@ export function IconButton({
           borderColor: secondaryColor,
           backgroundColor: primary ? primaryColor : undefined,
           width: expand ? '100%' : undefined,
+          paddingVertical: 12,
+          paddingHorizontal: 24,
         },
         viewStyle,
       ]}
@@ -88,8 +90,6 @@ export function IconButton({
         <ActivityIndicator
           color={tintColor}
           style={{
-            paddingVertical: 14,
-            paddingHorizontal: 24,
             flexDirection: 'row',
             alignContent: 'center',
             alignItems: 'center',
@@ -101,8 +101,6 @@ export function IconButton({
             justifyContent: expand ? 'center' : undefined,
             flexDirection: reverse ? 'row-reverse' : 'row',
             gap: 12,
-            paddingVertical: 12,
-            paddingHorizontal: 24,
           }}
         >
           <Ionicons name={icon as any} size={24} color={tintColor} />
