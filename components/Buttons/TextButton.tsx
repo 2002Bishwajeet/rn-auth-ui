@@ -1,21 +1,18 @@
-import {
-  StyleProp,
-  TextStyle,
-  TouchableHighlight,
-  TouchableOpacity,
-  ViewStyle,
-} from 'react-native';
+import { ActivityIndicator, StyleProp, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 import { ThemedText } from '../ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Colors } from '@/constants/Colors';
-import Animated, { AnimatedProps } from 'react-native-reanimated';
+import Animated, { AnimatedProps, FadeOut } from 'react-native-reanimated';
+import { useState } from 'react';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 type TextButtonProps = {
   text: string;
   lightColor?: string;
   darkColor?: string;
-  onPress: () => void;
+  onPress: () => Promise<void> | void;
   filled?: boolean;
+  showLoaderOnPress?: boolean;
   unFilledStyle?: StyleProp<ViewStyle>;
   filledStyle?: StyleProp<ViewStyle>;
   animatedProps?: AnimatedProps<ViewStyle>;
@@ -32,9 +29,23 @@ export function TextButton({
   filledStyle,
   animatedProps,
   animatedTextProps,
+  showLoaderOnPress,
 }: TextButtonProps) {
   const primaryColor = useThemeColor({ light: lightColor, dark: darkColor }, 'primary');
   const secondaryColor = useThemeColor({ light: lightColor, dark: darkColor }, 'secondary');
+  const [loading, setLoading] = useState(false);
+
+  const handlePress = async () => {
+    console.log(loading, showLoaderOnPress);
+    if (showLoaderOnPress) {
+      setLoading(true);
+      await onPress();
+      setLoading(false);
+    } else {
+      onPress();
+    }
+  };
+
   if (filled)
     return (
       <TouchableHighlight
@@ -48,18 +59,23 @@ export function TextButton({
           },
           filledStyle,
         ]}
-        onPress={onPress}
+        onPress={handlePress}
         underlayColor={secondaryColor}
       >
-        <ThemedText
-          style={{
-            color: Colors.dark.text,
-          }}
-          type='defaultSemiBold'
-          {...animatedTextProps}
-        >
-          {text}
-        </ThemedText>
+        {loading ? (
+          <ActivityIndicator size={'small'} />
+        ) : (
+          <ThemedText
+            exiting={FadeOut}
+            style={{
+              color: Colors.dark.text,
+            }}
+            type='defaultSemiBold'
+            {...animatedTextProps}
+          >
+            {text}
+          </ThemedText>
+        )}
       </TouchableHighlight>
     );
 

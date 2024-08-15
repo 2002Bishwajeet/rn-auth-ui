@@ -6,11 +6,14 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useAuth } from '@/contexts/AuthContext';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { OAuthProvider } from 'react-native-appwrite';
 import Animated, { FadeIn, FadeOut, SlideInLeft, SlideOutLeft } from 'react-native-reanimated';
+import * as WebBrowser from 'expo-web-browser';
 import Toast from 'react-native-root-toast';
+
+const timeout = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 type STATE = 'LOGIN' | 'SIGNUP';
 
@@ -44,29 +47,31 @@ export default function Login() {
       return;
     }
 
-    try {
-      if (state === 'LOGIN') {
-        await login(email, password);
-      } else {
-        await signUp(email, password, name);
-      }
-    } catch (error: any) {
-      Toast.show(error.message, {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.BOTTOM,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-        backgroundColor: 'red',
-        textColor: 'white',
-        opacity: 1,
-      });
-    }
+    await timeout(1000);
+
+    // try {
+    //   if (state === 'LOGIN') {
+    //     await login(email, password);
+    //   } else {
+    //     await signUp(email, password, name);
+    //   }
+    // } catch (error: any) {
+    //   Toast.show(error.message, {
+    //     duration: Toast.durations.LONG,
+    //     position: Toast.positions.BOTTOM,
+    //     shadow: true,
+    //     animation: true,
+    //     hideOnPress: true,
+    //     delay: 0,
+    //     backgroundColor: 'red',
+    //     textColor: 'white',
+    //     opacity: 1,
+    //   });
+    // }
   };
 
-  const loginWithGoogle = async () => {
-    loginWithOAuth(OAuthProvider.Google);
+  const loginWithGithub = async () => {
+    loginWithOAuth(OAuthProvider.Github);
   };
 
   const loginWithFacebook = async () => {
@@ -77,6 +82,13 @@ export default function Login() {
   const subtitleText = state === 'LOGIN' ? 'Welcome back!' : 'Create an account';
   const buttonText = state === 'LOGIN' ? 'Login' : 'Create account';
   const footerText = state === 'LOGIN' ? 'Don’t have an account?' : 'Already have an account?';
+
+  useEffect(() => {
+    WebBrowser.warmUpAsync();
+    return () => {
+      WebBrowser.coolDownAsync();
+    };
+  }, []);
 
   return (
     <ThemedView
@@ -143,6 +155,7 @@ export default function Login() {
           text={buttonText}
           onPress={onSubmitPress}
           filled
+          showLoaderOnPress
           animatedTextProps={{
             entering: FadeIn,
             exiting: FadeOut,
@@ -169,7 +182,7 @@ export default function Login() {
           marginTop: 8,
         }}
       >
-        <IconButton icon='logo-google' onPress={loginWithGoogle} text='Google' />
+        <IconButton icon='logo-github' onPress={loginWithGithub} text='Github' />
         <IconButton icon='logo-facebook' onPress={loginWithFacebook} text='Facebook' />
       </View>
       <View

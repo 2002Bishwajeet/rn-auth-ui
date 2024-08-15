@@ -1,4 +1,6 @@
 import { account } from '@/providers/appwrite_provider';
+import { createURL } from 'expo-linking';
+import { openAuthSessionAsync } from 'expo-web-browser';
 import {
   createContext,
   PropsWithChildren,
@@ -7,6 +9,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+
 import { ID, OAuthProvider } from 'react-native-appwrite';
 
 export type AuthState = 'authenticated' | 'unauthenticated' | 'pending';
@@ -39,7 +42,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     if (authState === 'pending') {
       (async () => {
         const user = await account.get().catch(e => {
-          console.warn(e);
+          // console.warn(e);
           return null;
         });
         if (user) {
@@ -56,8 +59,23 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     setAuthState('pending');
   }, []);
 
-  const loginWithOAuth = (provider: OAuthProvider) => {
-    account.createOAuth2Session(provider, '/login', '/login');
+  const loginWithOAuth = async (provider: OAuthProvider) => {
+    //REFER : https://discord.com/channels/564160730845151244/1241035472017424404
+    // https://github.com/appwrite/sdk-for-react-native/issues/10#issuecomment-2182781560
+    // createOAuth2Session would not work as the cookies aren't being returned to the client.
+    const redirectUrl = createURL('localhost', { scheme: 'rnauth' }); //HACK: localhost is a hack to get the redirection possible
+    const url = account.createOAuth2Token(provider, redirectUrl); // It should never return void but the types say so that needs a fix on the SDK
+    if (!url) return;
+
+    const result = await openAuthSessionAsync(url.href, redirectUrl);
+    if ('url' in result) {
+      const resultUrl = new URL(result.url);
+      const secret = resultUrl.searchParams.get('secret');
+      const userId = resultUrl.searchParams.get('userId');
+      if (!secret || !userId) return;
+      await account.createSession(userId, secret);
+    }
+
     setAuthState('pending');
   };
 
