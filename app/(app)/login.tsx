@@ -4,16 +4,13 @@ import { Divider } from '@/components/Divider';
 import { Input, InputMethods } from '@/components/Input/Input';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useAuth } from '@/contexts/AuthContext';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import { View } from 'react-native';
-import Animated, {
-  FadeIn,
-  FadeOut,
-  SlideInDown,
-  SlideInLeft,
-  SlideOutLeft,
-} from 'react-native-reanimated';
+import { OAuthProvider } from 'react-native-appwrite';
+import Animated, { FadeIn, FadeOut, SlideInLeft, SlideOutLeft } from 'react-native-reanimated';
+import Toast from 'react-native-root-toast';
 
 type STATE = 'LOGIN' | 'SIGNUP';
 
@@ -21,6 +18,7 @@ export default function Login() {
   const params = useLocalSearchParams();
   const currState = params['state'] as STATE | undefined;
   const [state, setState] = useState<STATE>(currState || 'SIGNUP');
+  const { login, loginWithOAuth, signUp } = useAuth();
 
   const nameRef = useRef<InputMethods>(null);
   const emailRef = useRef<InputMethods>(null);
@@ -33,24 +31,46 @@ export default function Login() {
     setState(state === 'LOGIN' ? 'SIGNUP' : 'LOGIN');
   }, [state]);
 
-  const onSubmitPress = () => {
+  const onSubmitPress = async () => {
     const name = nameRef.current?.getValue();
     const email = emailRef.current?.getValue();
     const password = passwordRef.current?.getValue();
 
     // Validate email and password
-    const isEmailValid = emailRef.current?.validate('email');
-    const isPasswordValid = passwordRef.current?.validate('password');
+    const isEmailValid = email && emailRef.current?.validate('email');
+    const isPasswordValid = password && passwordRef.current?.validate('password');
 
     if (!isEmailValid || !isPasswordValid) {
       return;
     }
 
-    if (state === 'LOGIN') {
-      // Login logic
-    } else {
-      // Signup logic
+    try {
+      if (state === 'LOGIN') {
+        await login(email, password);
+      } else {
+        await signUp(email, password, name);
+      }
+    } catch (error: any) {
+      Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+        backgroundColor: 'red',
+        textColor: 'white',
+        opacity: 1,
+      });
     }
+  };
+
+  const loginWithGoogle = async () => {
+    loginWithOAuth(OAuthProvider.Google);
+  };
+
+  const loginWithFacebook = async () => {
+    loginWithOAuth(OAuthProvider.Facebook);
   };
 
   const headerText = state === 'LOGIN' ? 'Log in' : 'Sign up';
@@ -149,8 +169,8 @@ export default function Login() {
           marginTop: 8,
         }}
       >
-        <IconButton icon='logo-google' onPress={() => {}} text='Google' />
-        <IconButton icon='logo-facebook' onPress={() => {}} text='Facebook' />
+        <IconButton icon='logo-google' onPress={loginWithGoogle} text='Google' />
+        <IconButton icon='logo-facebook' onPress={loginWithFacebook} text='Facebook' />
       </View>
       <View
         style={{
