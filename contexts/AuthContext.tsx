@@ -1,4 +1,5 @@
 import { account } from '@/providers/appwrite_provider';
+import { makeRedirectUri } from 'expo-auth-session';
 import { createURL } from 'expo-linking';
 import { openAuthSessionAsync } from 'expo-web-browser';
 import {
@@ -63,7 +64,8 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     //REFER : https://discord.com/channels/564160730845151244/1241035472017424404
     // https://github.com/appwrite/sdk-for-react-native/issues/10#issuecomment-2182781560
     // createOAuth2Session would not work as the cookies aren't being returned to the client.
-    const redirectUrl = createURL('localhost', { scheme: 'rnauth' }); //HACK: localhost is a hack to get the redirection possible
+    const redirectUrl = makeRedirectUri({ preferLocalhost: true }); //HACK: localhost is a hack to get the redirection possible
+    console.log('Redirect URL:', redirectUrl);
     const url = account.createOAuth2Token(provider, redirectUrl); // It should never return void but the types say so that needs a fix on the SDK
     if (!url) return;
 
@@ -93,7 +95,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   };
 
   const recoverPassword = useCallback(async (email: string) => {
-    const redirectUrl = createURL('localhost/recover', { scheme: 'rnauth' });
+    const redirectUrl = makeRedirectUri({ path: '/recover-password', preferLocalhost: true });
     await account.createRecovery(email, redirectUrl);
   }, []);
 

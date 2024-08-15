@@ -93,6 +93,7 @@ export function IconButton({
             flexDirection: 'row',
             alignContent: 'center',
             alignItems: 'center',
+            paddingVertical: 2,
           }}
         />
       ) : (
