@@ -11,8 +11,7 @@ export default function Layout() {
   // local loading state to prevent flickering
   const [loading, setLoading] = useState(true);
   const path = usePathname();
-  // console.log('path', path);
-  console.log('authState', authState);
+
   useEffect(() => {
     if (authState === 'pending') {
       return;
