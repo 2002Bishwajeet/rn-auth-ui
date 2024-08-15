@@ -5,6 +5,9 @@ function convertToPascalCase(str: string): string {
         .join("");
 }
 
+function timeout(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function isValidEmail(email: string): boolean {
     // Regular expression pattern for basic email validation
@@ -13,4 +16,4 @@ function isValidEmail(email: string): boolean {
 }
 
 
-export { convertToPascalCase, isValidEmail };
+export { convertToPascalCase, isValidEmail, timeout };

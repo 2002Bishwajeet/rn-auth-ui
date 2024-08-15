@@ -43,12 +43,13 @@ export function IconButton({
   const primaryColor = useThemeColor({ light: lightColor, dark: darkColor }, 'secondary');
   const tintColor = useThemeColor({ light: lightColor, dark: darkColor }, 'tint');
   const [loading, setLoading] = useState(false);
-  const width = useSharedValue(139);
+  const width = useSharedValue(0);
 
   const handlePress = async () => {
     if (showLoaderOnPress) {
       setLoading(true);
       width.value = withTiming(79);
+
       await onPress();
       width.value = withTiming(139, undefined, () => {
         runOnJS(setLoading)(false);
@@ -69,6 +70,7 @@ export function IconButton({
       disabled={loading}
       onLayout={e => {}}
       style={[
+        animatedStyle,
         {
           alignContent: 'center',
           alignItems: 'center',
@@ -78,7 +80,6 @@ export function IconButton({
           backgroundColor: primary ? primaryColor : undefined,
           width: expand ? '100%' : undefined,
         },
-        animatedStyle,
         viewStyle,
       ]}
       onPress={handlePress}
