@@ -26,7 +26,7 @@ export default function Index() {
           zIndex: 10,
         }}
       >
-        <IconButton icon='log-out-outline' text='Logout' onPress={logout} />
+        <IconButton icon='log-out-outline' text='Logout' onPress={logout} showLoaderOnPress />
       </View>
       <View
         style={{

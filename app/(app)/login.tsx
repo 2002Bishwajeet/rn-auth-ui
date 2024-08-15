@@ -13,8 +13,6 @@ import Animated, { FadeIn, FadeOut, SlideInLeft, SlideOutLeft } from 'react-nati
 import * as WebBrowser from 'expo-web-browser';
 import Toast from 'react-native-root-toast';
 
-const timeout = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
 type STATE = 'LOGIN' | 'SIGNUP';
 
 export default function Login() {
