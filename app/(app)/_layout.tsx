@@ -8,6 +8,7 @@ const public_routes = ['/login', '/forgot-password', '/reset-password'];
 
 export default function Layout() {
   const { authState } = useAuth();
+  // local loading state to prevent flickering
   const [loading, setLoading] = useState(true);
   const path = usePathname();
   // console.log('path', path);
