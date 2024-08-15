@@ -1,5 +1,4 @@
 import { IconButton } from '@/components/Buttons/IconButton';
-import { TextButton } from '@/components/Buttons/TextButton';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useAuth } from '@/contexts/AuthContext';
@@ -24,6 +23,7 @@ export default function Index() {
           width: '100%',
           top: top + 25,
           alignItems: 'flex-end',
+          zIndex: 10,
         }}
       >
         <IconButton icon='log-out-outline' text='Logout' onPress={logout} />

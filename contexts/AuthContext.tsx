@@ -18,8 +18,8 @@ export type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   loginWithOAuth: (provide: OAuthProvider) => void;
   signUp: (email: string, password: string, name?: string) => Promise<void>;
-  recoverPassword: (email: string) => Promise<void>;
-  confirmRecovery: (userId: string, secret: string, password: string) => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
+  resetPassword: (userId: string, secret: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   authState: AuthState;
 };
@@ -93,7 +93,8 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   };
 
   const recoverPassword = useCallback(async (email: string) => {
-    await account.createRecovery(email, '/recover');
+    const redirectUrl = createURL('localhost/recover', { scheme: 'rnauth' });
+    await account.createRecovery(email, redirectUrl);
   }, []);
 
   const logout = useCallback(async () => {
@@ -103,7 +104,15 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, signUp, logout, authState, loginWithOAuth, confirmRecovery, recoverPassword }}
+      value={{
+        login,
+        signUp,
+        logout,
+        authState,
+        loginWithOAuth,
+        resetPassword: confirmRecovery,
+        forgotPassword: recoverPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>

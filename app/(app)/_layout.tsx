@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { router, Stack, usePathname } from 'expo-router';
 import { useEffect } from 'react';
 
-const public_routes = ['/login', '/forgot-password'];
+const public_routes = ['/login', '/forgot-password', '/reset-password'];
 
 export default function Layout() {
   const { authState } = useAuth();

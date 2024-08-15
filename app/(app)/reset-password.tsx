@@ -12,22 +12,36 @@ import { Platform, StyleSheet, View } from 'react-native';
 import Toast from 'react-native-root-toast';
 
 export default function ForgotPassword() {
-  const emailRef = useRef<InputMethods>(null);
-  const { forgotPassword: recoverPassword } = useAuth();
+  const passwordRef = useRef<InputMethods>(null);
+  const confirmPasswordRef = useRef<InputMethods>(null);
+  const { resetPassword } = useAuth();
   const accent = useThemeColor({}, 'tint');
   const onSubmitPress = async () => {
-    const email = emailRef.current?.getValue();
+    const password = passwordRef.current?.getValue();
+    const confirmPassword = confirmPasswordRef.current?.getValue();
 
-    // Validate email
-    const isEmailValid = email && emailRef.current?.validate('email');
+    const equalPasswords = password === confirmPassword;
 
-    if (!isEmailValid) {
+    // Validate password
+    const isPasswordValid = password && equalPasswords && passwordRef.current?.validate('password');
+
+    if (!isPasswordValid) {
       return;
+    } else {
+      Toast.show('Passwords do not match', {
+        backgroundColor: 'red',
+        shadow: false,
+        containerStyle: {
+          borderRadius: 12,
+          paddingHorizontal: 16,
+        },
+      });
     }
 
     try {
-      await recoverPassword(email);
-      Toast.show('Reset password link sent to your email', {
+      //   await recoverPassword(email);
+      router.back();
+      Toast.show('Password Reseted successfully', {
         backgroundColor: accent,
         shadow: false,
         containerStyle: {
@@ -64,7 +78,10 @@ export default function ForgotPassword() {
           default: 'chevron-back',
         })}
         expand={false}
-        onPress={() => router.back()}
+        onPress={function () {
+          if (router.canGoBack()) return router.back();
+          return router.replace('/login?state=LOGIN');
+        }}
         viewStyle={styles.buttonView}
       />
       <View
@@ -78,15 +95,20 @@ export default function ForgotPassword() {
             gap: 12,
           }}
         >
-          <ThemedText type='title'>Forgot Password?</ThemedText>
-          <ThemedText>
-            Don't worry! Just fill in your email and we'll send you a link to reset your password.
-          </ThemedText>
+          <ThemedText type='title'>Reset Password?</ThemedText>
+          <ThemedText>Enter your new password</ThemedText>
         </View>
 
         <Input
-          ref={emailRef}
-          hintText='Enter you email address'
+          ref={passwordRef}
+          hintText='New password'
+          autoCapitalize='none'
+          autoComplete='email'
+          viewStyle={{ width: '100%' }}
+        />
+        <Input
+          ref={confirmPasswordRef}
+          hintText='Confirm new password'
           autoCapitalize='none'
           autoComplete='email'
           viewStyle={{ width: '100%' }}

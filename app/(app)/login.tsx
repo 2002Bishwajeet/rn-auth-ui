@@ -47,27 +47,25 @@ export default function Login() {
       return;
     }
 
-    await timeout(1000);
-
-    // try {
-    //   if (state === 'LOGIN') {
-    //     await login(email, password);
-    //   } else {
-    //     await signUp(email, password, name);
-    //   }
-    // } catch (error: any) {
-    //   Toast.show(error.message, {
-    //     duration: Toast.durations.LONG,
-    //     position: Toast.positions.BOTTOM,
-    //     shadow: true,
-    //     animation: true,
-    //     hideOnPress: true,
-    //     delay: 0,
-    //     backgroundColor: 'red',
-    //     textColor: 'white',
-    //     opacity: 1,
-    //   });
-    // }
+    try {
+      if (state === 'LOGIN') {
+        await login(email, password);
+      } else {
+        await signUp(email, password, name);
+      }
+    } catch (error: any) {
+      Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+        backgroundColor: 'red',
+        textColor: 'white',
+        opacity: 1,
+      });
+    }
   };
 
   const loginWithGithub = async () => {
@@ -169,7 +167,7 @@ export default function Login() {
             }}
             text='Forgot your password?'
             onPress={() => {
-              router.navigate('/forgot-password');
+              router.navigate('/reset-password');
             }}
           />
         )}
