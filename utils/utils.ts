@@ -5,10 +5,6 @@ function convertToPascalCase(str: string): string {
         .join("");
 }
 
-function clamp(val: number, min: number, max: number) {
-    "worklet";
-    return Math.min(Math.max(val, min), max);
-}
 
 function isValidEmail(email: string): boolean {
     // Regular expression pattern for basic email validation
@@ -17,4 +13,4 @@ function isValidEmail(email: string): boolean {
 }
 
 
-export { convertToPascalCase, clamp, isValidEmail };
+export { convertToPascalCase, isValidEmail };
