@@ -8,7 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { router } from 'expo-router';
 import { useRef } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Keyboard, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import Toast from 'react-native-root-toast';
 
 export default function ForgotPassword() {
@@ -24,6 +24,8 @@ export default function ForgotPassword() {
     if (!isEmailValid) {
       return;
     }
+
+    Keyboard.dismiss();
 
     try {
       await recoverPassword(email);
@@ -51,55 +53,58 @@ export default function ForgotPassword() {
   };
 
   return (
-    <ThemedView
-      style={{
-        paddingHorizontal: 24,
-        alignItems: 'flex-start',
-      }}
-    >
-      <IconButton
-        icon={Platform.select({
-          ios: 'chevron-back',
-          android: 'arrow-back',
-          default: 'chevron-back',
-        })}
-        expand={false}
-        onPress={() => router.back()}
-        viewStyle={styles.buttonView}
-      />
-      <View
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ThemedView
         style={{
-          gap: 24,
+          paddingHorizontal: 24,
           alignItems: 'flex-start',
         }}
       >
+        <IconButton
+          icon={Platform.select({
+            ios: 'chevron-back',
+            android: 'arrow-back',
+            default: 'chevron-back',
+          })}
+          expand={false}
+          onPress={() => router.back()}
+          viewStyle={styles.buttonView}
+        />
+
         <View
           style={{
-            gap: 12,
+            gap: 24,
+            alignItems: 'flex-start',
           }}
         >
-          <ThemedText type='title'>Forgot Password?</ThemedText>
-          <ThemedText>
-            Don't worry! Just fill in your email and we'll send you a link to reset your password.
-          </ThemedText>
-        </View>
+          <View
+            style={{
+              gap: 12,
+            }}
+          >
+            <ThemedText type='title'>Forgot Password?</ThemedText>
+            <ThemedText>
+              Don't worry! Just fill in your email and we'll send you a link to reset your password.
+            </ThemedText>
+          </View>
 
-        <Input
-          ref={emailRef}
-          hintText='Enter you email address'
-          autoCapitalize='none'
-          autoComplete='email'
-          viewStyle={{ width: '100%' }}
+          <Input
+            ref={emailRef}
+            hintText='Enter you email address'
+            autoCapitalize='none'
+            autoComplete='email'
+            viewStyle={{ width: '100%' }}
+          />
+        </View>
+        <TextButton
+          text='Reset Password'
+          filled
+          onPress={onSubmitPress}
+          filledStyle={{ width: '100%', marginTop: 24 }}
+          showLoaderOnPress
         />
-      </View>
-      <TextButton
-        text='Reset Password'
-        filled
-        onPress={onSubmitPress}
-        filledStyle={{ width: '100%', marginTop: 24 }}
-        showLoaderOnPress
-      />
-    </ThemedView>
+      </ThemedView>
+    </TouchableWithoutFeedback>
   );
 }
 

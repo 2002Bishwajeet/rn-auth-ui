@@ -6,14 +6,47 @@ import { ThemedView } from '@/components/ThemedView';
 import { useAuth } from '@/contexts/AuthContext';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { router } from 'expo-router';
-import { useRef } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useRef } from 'react';
+import { Keyboard, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import Toast from 'react-native-root-toast';
 
+//TODO: Create a cloud function that redirects back to your app
 export default function ForgotPassword() {
   const passwordRef = useRef<InputMethods>(null);
   const confirmPasswordRef = useRef<InputMethods>(null);
+  const params = useLocalSearchParams();
+  const userId = params['userId'] as string;
+  const secret = params['secret'] as string;
+  const expire = params['expire'] as string;
+
+  useEffect(() => {
+    if (!userId && !secret) {
+      router.replace('/');
+    }
+  }, [userId, secret]);
+
+  useEffect(() => {
+    if (!expire) {
+      return;
+    }
+    const currDate = new Date().getTime();
+    // expire=2024-08-16+09%3A24%3A29.590
+    // Sample expire Date. Clean it up and convert it to a number
+    const decodedExpire = decodeURIComponent(expire);
+    const expireDate = new Date(decodedExpire).getTime();
+    // If the date is less than the current date, redirect to the login page
+    if (currDate > expireDate) {
+      Toast.show('Link has expired. Please Try again', {
+        shadow: false,
+        containerStyle: {
+          borderRadius: 12,
+        },
+      });
+      router.replace('/login?state=LOGIN');
+    }
+  }, [expire]);
+
   const { resetPassword } = useAuth();
   const accent = useThemeColor({}, 'tint');
   const onSubmitPress = async () => {
@@ -26,21 +59,23 @@ export default function ForgotPassword() {
     const isPasswordValid = password && equalPasswords && passwordRef.current?.validate('password');
 
     if (!isPasswordValid) {
+      if (!equalPasswords)
+        Toast.show('Passwords do not match', {
+          backgroundColor: 'red',
+          shadow: false,
+          containerStyle: {
+            borderRadius: 12,
+            paddingHorizontal: 16,
+          },
+        });
       return;
-    } else {
-      Toast.show('Passwords do not match', {
-        backgroundColor: 'red',
-        shadow: false,
-        containerStyle: {
-          borderRadius: 12,
-          paddingHorizontal: 16,
-        },
-      });
     }
 
+    Keyboard.dismiss();
+
     try {
-      //   await recoverPassword(email);
-      router.back();
+      await resetPassword(userId, secret, password);
+      router.replace('/login?state=LOGIN');
       Toast.show('Password Reseted successfully', {
         backgroundColor: accent,
         shadow: false,
@@ -65,63 +100,65 @@ export default function ForgotPassword() {
   };
 
   return (
-    <ThemedView
-      style={{
-        paddingHorizontal: 24,
-        alignItems: 'flex-start',
-      }}
-    >
-      <IconButton
-        icon={Platform.select({
-          ios: 'chevron-back',
-          android: 'arrow-back',
-          default: 'chevron-back',
-        })}
-        expand={false}
-        onPress={function () {
-          if (router.canGoBack()) return router.back();
-          return router.replace('/login?state=LOGIN');
-        }}
-        viewStyle={styles.buttonView}
-      />
-      <View
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ThemedView
         style={{
-          gap: 24,
+          paddingHorizontal: 24,
           alignItems: 'flex-start',
         }}
       >
+        <IconButton
+          icon={Platform.select({
+            ios: 'chevron-back',
+            android: 'arrow-back',
+            default: 'chevron-back',
+          })}
+          expand={false}
+          onPress={function () {
+            if (router.canGoBack()) return router.back();
+            return router.replace('/login?state=LOGIN');
+          }}
+          viewStyle={styles.buttonView}
+        />
         <View
           style={{
-            gap: 12,
+            gap: 24,
+            alignItems: 'flex-start',
           }}
         >
-          <ThemedText type='title'>Reset Password?</ThemedText>
-          <ThemedText>Enter your new password</ThemedText>
-        </View>
+          <View
+            style={{
+              gap: 12,
+            }}
+          >
+            <ThemedText type='title'>Reset Password?</ThemedText>
+            <ThemedText>Enter your new password</ThemedText>
+          </View>
 
-        <Input
-          ref={passwordRef}
-          hintText='New password'
-          autoCapitalize='none'
-          autoComplete='email'
-          viewStyle={{ width: '100%' }}
+          <Input
+            ref={passwordRef}
+            hintText='New password'
+            autoCapitalize='none'
+            autoComplete='email'
+            viewStyle={{ width: '100%' }}
+          />
+          <Input
+            ref={confirmPasswordRef}
+            hintText='Confirm new password'
+            autoCapitalize='none'
+            autoComplete='email'
+            viewStyle={{ width: '100%' }}
+          />
+        </View>
+        <TextButton
+          text='Reset Password'
+          filled
+          onPress={onSubmitPress}
+          filledStyle={{ width: '100%', marginTop: 24 }}
+          showLoaderOnPress
         />
-        <Input
-          ref={confirmPasswordRef}
-          hintText='Confirm new password'
-          autoCapitalize='none'
-          autoComplete='email'
-          viewStyle={{ width: '100%' }}
-        />
-      </View>
-      <TextButton
-        text='Reset Password'
-        filled
-        onPress={onSubmitPress}
-        filledStyle={{ width: '100%', marginTop: 24 }}
-        showLoaderOnPress
-      />
-    </ThemedView>
+      </ThemedView>
+    </TouchableWithoutFeedback>
   );
 }
 
