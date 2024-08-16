@@ -1,8 +1,76 @@
-# Welcome to your Expo app 👋
+<img width="1280" alt="Almost Reddit - 571x238" src="/assets/images/header.png">
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# React Native Auth UI
 
-## Get started
+A beautiful auth template starter app built with React Native, Expo and Appwrite.
+
+> Blog: Coming soon
+
+## What is Appwrite
+
+Appwrite is an open-source backend server that helps you build modern apps faster. It is a secure end-to-end backend server that is specially designed for frontend and mobile developers. It is a self-hosted solution that provides developers with a set of easy-to-use APIs to build any kind of project.
+
+Learn more about Appwrite [here](https://appwrite.io/).
+
+## Features
+
+- Supports Email sign-in and sign-up
+- Supports for OAuth providers
+- Forgot password and reset password
+- Beautiful and animated UI
+- Built on File-based routing
+
+## Tech Stack
+
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.dev/)
+- [Appwrite](https://appwrite.io/)
+- [Expo Router](https://github.com/expo/router)
+
+## Getting started
+
+If you are new to Github and haven't heard how to use this template, I recommend refer to [getting-started](docs/getting-started.md) guide on how to use this template.
+
+Once you have the project setup, let's setup Appwrite Project and configure the app.
+
+### Appwrite Setup
+
+1. Create an account on [Appwrite](https://cloud.appwrite.io/) if you don't have already.
+
+2. If you don't have and org setup, create a new organization.
+
+3. Once thats done, create a new project. Give it a name and a custom project Id.
+
+4. Add a new Ios and Android platform to the project. You can find the bundle identifier in the `app.json` file.
+
+5. To Setup OAuth providers, go to the `Auth => Settings ` tab in the Appwrite dashboard and add the providers you want to use. Refer to their individual docs on how to setup the OAuth providers.
+
+That's it for the Appwrite setup. Now let's configure the app.
+
+### App Configuration
+
+1. Copy the `.env.example` file to `.env` and fill in the details.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Fill in the Appwrite details in the `.env` file.
+
+   ```env
+   EXPO_PUBLIC_API_URL=your_appwrite_api_url
+   EXPO_PUBLIC_PROJECT_ID=your_appwrite_project_id
+   EXPO_PUBLIC_PLATFORM=your_app_bundle_id
+   ```
+
+3. Ensure you change the app name , app slug and bundle identifier in the `app.json` file.
+
+> [!NOTE]
+> Ensure the bundle identifier is the same as the one you added in the Appwrite project.
+
+4. (Optional) you can change the app splash screen and icon in the `app.json` file.
+
+### Running the app
 
 1. Install dependencies
 
@@ -10,41 +78,27 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Prebuild the app
 
    ```bash
-    npx expo start
+   npx expo prebuild
    ```
 
-In the output, you'll find options to open the app in a
+3. If you are development mode, ensure you type `npm run ios` or `npm run android` to start the app.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+4. If the app is already installed, `npm run start` should be fine for you
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Contributing
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Contributions are highly Welcomed 💙 . Feel free to open PRs for small issues such as typos. For large issues or features, please open an issue and wait for it to be assigned to you.
 
 ## Join the community
 
-Join our community of developers creating universal apps.
+Join Appwrite community of developers and contributors to get help, share your projects and contribute to the platform.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Appwrite on GitHub](https://github.com/appwrite/appwrite): View appwrite open source platform and contribute.
+- [Discord community](https://appwrite.io/discord): Geek out with other Appwriters and get help from the community.
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
