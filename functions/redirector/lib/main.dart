@@ -12,12 +12,12 @@ Future<dynamic> main(final context) async {
     validSchemes.add(scheme);
   }
 
+  context.log('full url: ${context.req.url}');
   if (context.req.method == 'GET') {
     final path = context.req.path as String;
     context.log('Path: $path');
     if (path.contains('/reset-password')) {
       final queryParams = context.req.query as Map<String, dynamic>;
-      context.log('full url: ${context.req.url}');
       if (queryParams.isEmpty) {
         return context.res.send('No Query Params', 400, {
           'content-type': 'text/plain',
