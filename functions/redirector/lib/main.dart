@@ -54,7 +54,7 @@ Future<dynamic> main(final context) async {
         });
       }
 
-      return context.res.redirect('$decodedScheme://reset-password?secret=$secret&userId=$userId&expires=$expire', 301);
+      return context.res.redirect('${decodedScheme}reset-password?secret=$secret&userId=$userId&expires=$expire', 301);
     }
 
     // Add more redirection code here. E.g for verifying email, etc.
