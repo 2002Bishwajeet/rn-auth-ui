@@ -33,13 +33,16 @@ Future<dynamic> main(final context) async {
         return context.res.send('Missing Query Params', 400, {
           'content-type': 'text/plain',
         });
-      } else if (!validSchemes.contains(scheme)) {
+      }
+      final decodedScheme = Uri.decodeComponent(scheme);
+
+      if (!validSchemes.contains(decodedScheme)) {
         context.log('Invalid Scheme. $scheme');
         return context.res.send('Invalid Scheme. If its correct, please add in your env in your cloud function', 400, {
           'content-type': 'text/plain',
         });
       }
-      final decodedScheme = Uri.decodeComponent(scheme);
+
       return context.res.redirect('$decodedScheme://reset-password?secret=$secret&userId=$userId&expires=$expire', 301);
     }
 
