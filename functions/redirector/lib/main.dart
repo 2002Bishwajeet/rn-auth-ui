@@ -59,7 +59,7 @@ Future<dynamic> main(final context) async {
 
     // Add more redirection code here. E.g for verifying email, etc.
 
-    if (path.startsWith('/'))
+    if (path.startsWith('/') || path.isEmpty)
       return context.res.send('Nothing to redirect to ;)', 204, {
         'content-type': 'text/plain',
       });
