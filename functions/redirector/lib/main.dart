@@ -42,9 +42,10 @@ Future<dynamic> main(final context) async {
 
     // Add more redirection code here. E.g for verifying email, etc.
 
-    return context.res.send('Nothing to redirect to ;)', 204, {
-      'content-type': 'text/plain',
-    });
+    if (path.startsWith('/'))
+      return context.res.send('Nothing to redirect to ;)', 204, {
+        'content-type': 'text/plain',
+      });
   } else {
     /// Only Get Requests are allowed
     final method = context.req.method as String;
