@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 /// Redirector Function
@@ -13,13 +12,11 @@ Future<dynamic> main(final context) async {
     validSchemes.add(scheme);
   }
 
-  context.log('full url: ${context.req.url}');
   if (context.req.method == 'GET') {
     final path = context.req.path as String;
     context.log('Path: $path');
     if (path.contains('/reset-password')) {
       final queryParams = context.req.query as Map<String, dynamic>;
-      context.log('Query Params: ${jsonEncode(queryParams)}');
       if (queryParams.isEmpty) {
         return context.res.send('No Query Params', 400, {
           'content-type': 'text/plain',
@@ -29,9 +26,10 @@ Future<dynamic> main(final context) async {
       final scheme = queryParams['scheme'] as String?;
       final secret = queryParams['secret'] as String?;
       final userId = queryParams['userId'] as String?;
-      final expires = queryParams['expires'] as String?;
+      final expires = queryParams['expire'] as String?;
 
       if (scheme == null || secret == null || userId == null || expires == null) {
+        context.log('Missing Query Params: {scheme: $scheme, secret: $secret, userId: $userId, expires: $expires}');
         return context.res.send('Missing Query Params', 400, {
           'content-type': 'text/plain',
         });
@@ -41,7 +39,9 @@ Future<dynamic> main(final context) async {
           'content-type': 'text/plain',
         });
       }
-      return context.res.redirect('$scheme://reset-password?secret=$secret&userId=$userId&expires=$expires', 301);
+      final decodedScheme = Uri.decodeComponent(scheme);
+      return context.res
+          .redirect('$decodedScheme://reset-password?secret=$secret&userId=$userId&expires=$expires', 301);
     }
 
     // Add more redirection code here. E.g for verifying email, etc.
