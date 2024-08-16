@@ -7,7 +7,7 @@ import 'dart:io';
 Future<dynamic> main(final context) async {
   final scheme = Platform.environment['APP_SCHEME'];
 
-  const validSchemes = ['localhost'];
+  final validSchemes = ['localhost'];
   if (scheme != null) {
     validSchemes.add(scheme);
   }
