@@ -19,7 +19,7 @@ extension ListExtension on List<String> {
 Future<dynamic> main(final context) async {
   final scheme = Platform.environment['APP_SCHEME'];
 
-  final validSchemes = ['localhost'];
+  final validSchemes = ['localhost', '192.168.1.2']; // localhost schemes
   if (scheme != null) {
     validSchemes.add(scheme);
   }
