@@ -3,7 +3,6 @@ import { useAuth } from '@/contexts/AuthContext';
 
 import { router, Stack, usePathname } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Linking } from 'react-native';
 
 const public_routes = ['/login', '/forgot-password', '/reset-password'];
 
