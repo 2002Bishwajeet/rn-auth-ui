@@ -26,13 +26,6 @@ export default function Layout() {
     if (loading) setLoading(false);
   }, [authState, loading, path]);
 
-  useEffect(() => {
-    const listener = Linking.addEventListener('url', ({ url }) => {
-      console.log('url', url);
-      const uri = new URL(url);
-    });
-  }, []);
-
   if (loading) {
     return <Loading />;
   }

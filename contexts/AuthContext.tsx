@@ -1,4 +1,4 @@
-import { account } from '@/providers/appwrite_provider';
+import { account, REDIRECT_URL } from '@/providers/appwrite_provider';
 import { makeRedirectUri } from 'expo-auth-session';
 import { openAuthSessionAsync } from 'expo-web-browser';
 import {
@@ -93,9 +93,9 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   };
 
   const recoverPassword = useCallback(async (email: string) => {
-    const redirectUrl = makeRedirectUri({ preferLocalhost: true });
-    console.log('Redirect URL:', redirectUrl);
-    // await account.createRecovery(email, redirectUrl);
+    const redirectScheme = makeRedirectUri({ preferLocalhost: true });
+    const redirectUrl = `${REDIRECT_URL}/reset-password?scheme=${redirectScheme}`;
+    await account.createRecovery(email, redirectUrl);
   }, []);
 
   const logout = useCallback(async () => {

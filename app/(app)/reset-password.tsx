@@ -141,6 +141,7 @@ export default function ForgotPassword() {
             autoCapitalize='none'
             autoComplete='email'
             viewStyle={{ width: '100%' }}
+            obscureText
           />
           <Input
             ref={confirmPasswordRef}
