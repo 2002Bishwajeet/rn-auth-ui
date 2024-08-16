@@ -93,7 +93,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   };
 
   const recoverPassword = useCallback(async (email: string) => {
-    const redirectScheme = makeRedirectUri({ preferLocalhost: true });
+    const redirectScheme = makeRedirectUri();
     const redirectUrl = `${REDIRECT_URL}/reset-password?scheme=${redirectScheme}`;
     await account.createRecovery(email, redirectUrl);
   }, []);

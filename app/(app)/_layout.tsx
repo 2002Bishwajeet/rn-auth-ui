@@ -1,5 +1,6 @@
 import Loading from '@/components/Loading';
 import { useAuth } from '@/contexts/AuthContext';
+import { useURL } from 'expo-linking';
 
 import { router, Stack, usePathname } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ export default function Layout() {
   // local loading state to prevent flickering
   const [loading, setLoading] = useState(true);
   const path = usePathname();
+  const url = useURL();
 
   useEffect(() => {
     if (authState === 'pending') {
@@ -24,6 +26,12 @@ export default function Layout() {
     }
     if (loading) setLoading(false);
   }, [authState, loading, path]);
+
+  useEffect(() => {
+    if (url) {
+      router.navigate(url);
+    }
+  }, [url]);
 
   if (loading) {
     return <Loading />;
