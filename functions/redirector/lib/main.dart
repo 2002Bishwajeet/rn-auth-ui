@@ -14,6 +14,7 @@ Future<dynamic> main(final context) async {
 
   if (context.req.method == 'GET') {
     final path = context.req.path as String;
+    context.log('Path: $path');
     if (path.contains('/reset-password')) {
       final queryParams = context.req.query as Map<String, dynamic>;
       if (queryParams.isEmpty) {
