@@ -1,24 +1,21 @@
 {
-    "projectId": "rn-auth-ui",
-    "projectName": "rn-auth-ui",
-    "functions": [
-        {
-            "$id": "redirector",
-            "name": "redirector",
-            "runtime": "dart-3.1",
-            "execute": [],
-            "events": [],
-            "schedule": "",
-            "timeout": 15,
-            "enabled": true,
-            "logging": true,
-            "entrypoint": "lib/main.dart",
-            "commands": "dart pub get",
-            "ignore": [
-                ".packages",
-                ".dart_tool"
-            ],
-            "path": "functions/redirector"
-        }
-    ]
+  "projectId": "rn-auth-ui",
+  "projectName": "rn-auth-ui",
+  "functions": [
+    {
+      "$id": "redirector",
+      "name": "redirector",
+      "runtime": "dart-3.1",
+      "execute": ["any"],
+      "events": [],
+      "schedule": "",
+      "timeout": 15,
+      "enabled": true,
+      "logging": true,
+      "entrypoint": "lib/main.dart",
+      "commands": "dart pub get",
+      "ignore": [".packages", ".dart_tool"],
+      "path": "functions/redirector"
+    }
+  ]
 }
