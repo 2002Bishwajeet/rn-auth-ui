@@ -1,3 +1,4 @@
+// https://www.realtimecolors.com/?colors=ebe4ec-060406-975987-5e3151-863c70&fonts=Inter-Inter
 const tintColorLight = '#c379ad';
 const tintColorDark = '#863c70';
 

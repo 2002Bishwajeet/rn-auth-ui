@@ -4,24 +4,24 @@
     "slug": "rn-auth-ui",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "rnauth",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": ["**/*"],
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#19191D"
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.biswa.rnauthui"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
+      // "adaptiveIcon": {
+      //   "foregroundImage": "./assets/images/logo.png",
+      //   "backgroundColor": "#19191D"
+      // },
       "package": "com.biswa.rnauthui"
     },
     "plugins": ["expo-router"],

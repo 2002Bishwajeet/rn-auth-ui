@@ -1,6 +1,5 @@
 import { account } from '@/providers/appwrite_provider';
 import { makeRedirectUri } from 'expo-auth-session';
-import { createURL } from 'expo-linking';
 import { openAuthSessionAsync } from 'expo-web-browser';
 import {
   createContext,
