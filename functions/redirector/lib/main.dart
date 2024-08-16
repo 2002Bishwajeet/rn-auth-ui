@@ -26,10 +26,10 @@ Future<dynamic> main(final context) async {
       final scheme = queryParams['scheme'] as String?;
       final secret = queryParams['secret'] as String?;
       final userId = queryParams['userId'] as String?;
-      final expires = queryParams['expire'] as String?;
+      final expire = queryParams['expire'] as String?;
 
-      if (scheme == null || secret == null || userId == null || expires == null) {
-        context.log('Missing Query Params: {scheme: $scheme, secret: $secret, userId: $userId, expires: $expires}');
+      if (scheme == null || secret == null || userId == null || expire == null) {
+        context.log('Missing Query Params: {scheme: $scheme, secret: $secret, userId: $userId, expire: $expire}');
         return context.res.send('Missing Query Params', 400, {
           'content-type': 'text/plain',
         });
@@ -40,8 +40,7 @@ Future<dynamic> main(final context) async {
         });
       }
       final decodedScheme = Uri.decodeComponent(scheme);
-      return context.res
-          .redirect('$decodedScheme://reset-password?secret=$secret&userId=$userId&expires=$expires', 301);
+      return context.res.redirect('$decodedScheme://reset-password?secret=$secret&userId=$userId&expires=$expire', 301);
     }
 
     // Add more redirection code here. E.g for verifying email, etc.
