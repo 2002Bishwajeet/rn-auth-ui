@@ -5,7 +5,7 @@ extension ListExtension on List<String> {
   bool matchesScheme(String scheme) {
     if (this.isEmpty) return false;
     for (final item in this) {
-      if (item.contains(scheme)) {
+      if (scheme.contains(item)) {
         return true;
       }
     }
