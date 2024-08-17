@@ -131,7 +131,7 @@ export default function Login() {
           <Input
             ref={passwordRef}
             hintText='Password'
-            autoComplete={state === 'LOGIN' ? 'current-password' : 'new-password'}
+            autoComplete={'current-password'}
             autoCapitalize='none'
             obscureText
             required
