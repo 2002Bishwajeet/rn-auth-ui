@@ -63,11 +63,17 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     //REFER : https://discord.com/channels/564160730845151244/1241035472017424404
     // https://github.com/appwrite/sdk-for-react-native/issues/10#issuecomment-2182781560
     // createOAuth2Session would not work as the cookies aren't being returned to the client.
-    const redirectUrl = makeRedirectUri({ preferLocalhost: true }); //HACK: localhost is a hack to get the redirection possible
-    const url = account.createOAuth2Token(provider, redirectUrl); // It should never return void but the types say so that needs a fix on the SDK
+    let redirectScheme = makeRedirectUri({ preferLocalhost: true });
+
+    //HACK: localhost is a hack to get the redirection possible
+    if (!redirectScheme.includes('localhost')) {
+      redirectScheme = `${redirectScheme}localhost`;
+    }
+
+    const url = account.createOAuth2Token(provider, redirectScheme); // It should never return void but the types say so that needs a fix on the SDK
     if (!url) return;
 
-    const result = await openAuthSessionAsync(url.href, redirectUrl);
+    const result = await openAuthSessionAsync(url.href, redirectScheme);
     if ('url' in result) {
       const resultUrl = new URL(result.url);
       const secret = resultUrl.searchParams.get('secret');

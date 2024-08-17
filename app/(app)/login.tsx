@@ -66,13 +66,9 @@ export default function Login() {
     }
   };
 
-  const loginWithGithub = async () => {
-    loginWithOAuth(OAuthProvider.Github);
-  };
+  const loginWithGithub = async () => loginWithOAuth(OAuthProvider.Github);
 
-  const loginWithFacebook = async () => {
-    loginWithOAuth(OAuthProvider.Facebook);
-  };
+  const loginWithFacebook = async () => loginWithOAuth(OAuthProvider.Facebook);
 
   const headerText = state === 'LOGIN' ? 'Log in' : 'Sign up';
   const subtitleText = state === 'LOGIN' ? 'Welcome back!' : 'Create an account';
