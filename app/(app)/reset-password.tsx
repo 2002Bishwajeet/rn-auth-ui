@@ -104,7 +104,7 @@ export default function ForgotPassword() {
       <ThemedView
         style={{
           paddingHorizontal: 24,
-          alignItems: 'flex-start',
+          alignItems: 'center',
         }}
       >
         <IconButton
@@ -169,5 +169,6 @@ const styles = StyleSheet.create({
     marginBottom: 36,
     paddingHorizontal: 8,
     paddingVertical: 6,
+    alignSelf: 'flex-start',
   },
 });

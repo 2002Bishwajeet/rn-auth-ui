@@ -19,9 +19,9 @@ export default function ForgotPassword() {
     const email = emailRef.current?.getValue();
 
     // Validate email
-    const isEmailValid = email && emailRef.current?.validate('email');
+    const isEmailValid = emailRef.current?.validate('email');
 
-    if (!isEmailValid) {
+    if (!email || !isEmailValid) {
       return;
     }
 
@@ -57,7 +57,7 @@ export default function ForgotPassword() {
       <ThemedView
         style={{
           paddingHorizontal: 24,
-          alignItems: 'flex-start',
+          alignItems: 'center',
         }}
       >
         <IconButton
@@ -96,6 +96,7 @@ export default function ForgotPassword() {
             viewStyle={{ width: '100%' }}
           />
         </View>
+
         <TextButton
           text='Reset Password'
           filled
@@ -114,5 +115,6 @@ const styles = StyleSheet.create({
     marginBottom: 36,
     paddingHorizontal: 8,
     paddingVertical: 6,
+    alignSelf: 'flex-start',
   },
 });
