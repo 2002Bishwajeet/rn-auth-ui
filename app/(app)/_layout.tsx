@@ -28,7 +28,6 @@ export default function Layout() {
   }, [authState, loading, path]);
 
   useEffect(() => {
-    console.log('url', url);
     // If the url contains expo-development-client, the app has been build and run for the first time.
     // Avoid redirecting anywhere and ignore the url. Otherwise, we see infinite loop of redirects.
     if (!url) return;
