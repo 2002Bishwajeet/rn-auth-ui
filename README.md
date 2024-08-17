@@ -61,6 +61,7 @@ That's it for the Appwrite setup. Now let's configure the app.
    EXPO_PUBLIC_API_URL=your_appwrite_api_url
    EXPO_PUBLIC_PROJECT_ID=your_appwrite_project_id
    EXPO_PUBLIC_PLATFORM=your_app_bundle_id
+   EXPO_PUBLIC_REDIRECT_URL=your_appwrite_redirect_url
    ```
 
 3. Ensure you change the app name , app slug and bundle identifier in the `app.json` file.
