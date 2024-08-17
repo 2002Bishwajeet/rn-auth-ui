@@ -123,10 +123,10 @@ That's it for the Appwrite setup. Now let's configure the app.
 
 ## Screenshots
 
-|    <img src=".github/screenshots/landing.png" width="200" >    |     <img src=".github/screenshots/login.png" width="200" >      |
+|    <img src=".github/screenshots/landing.png" width="500" >    |     <img src=".github/screenshots/login.png" width="500" >      |
 | :------------------------------------------------------------: | :-------------------------------------------------------------: |
-|    <img src=".github/screenshots/signup.png" width="200" >     | <img src=".github/screenshots/forgotpassword.png" width="200" > |
-| <img src=".github/screenshots/resetpassword.png" width="200" > |      <img src=".github/screenshots/home.png" width="200" >      |
+|    <img src=".github/screenshots/signup.png" width="500" >     | <img src=".github/screenshots/forgotpassword.png" width="500" > |
+| <img src=".github/screenshots/resetpassword.png" width="500" > |      <img src=".github/screenshots/home.png" width="500" >      |
 
 ## Contributing
 
