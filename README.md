@@ -19,6 +19,7 @@ Learn more about Appwrite [here](https://appwrite.io/).
 - Forgot password and reset password
 - Beautiful and animated UI
 - Built on File-based routing
+- Supports Dark and Light mode
 
 ## Tech Stack
 
@@ -45,6 +46,35 @@ Once you have the project setup, let's setup Appwrite Project and configure the 
 
 5. To Setup OAuth providers, go to the `Auth => Settings ` tab in the Appwrite dashboard and add the providers you want to use. Refer to their individual docs on how to setup the OAuth providers.
 
+#### Setup Cloud Function
+
+This projects uses a cloud function that redirects back to your app when you click the password reset login you receive in your email. To setup the cloud function, I recommend using `Deploy from Git` option in `Functions` tab in the Appwrite dashboard.
+
+To learn more about how to deploy a function from git, refer to the [Function docs](https://appwrite.io/docs/products/functions/deploy-from-git).
+
+Else you can also use appwrite CLI to deploy the function.
+
+Once you have setup the cloud function, add the following environment variable to the function.
+
+```env
+APP_SCHEME=your_app_scheme
+```
+
+For example,
+
+```env
+APP_SCHEME=rnauth
+```
+
+> [!IMPORTANT]
+> For security reasons, it is recommended to add the app_scheme in the function environment variable.
+> This scheme is needed to redirect back to the app. You can find the scheme in the `app.json` file.
+> Without this it won't redirect back to your app
+
+- Once that's done, go to the `Domains` tab and copy the url of the function.
+- Then add a new Web app Platform in the Appwrite Project
+- Give any name of your choice and paste the hostname of the function in the Hostname field.
+
 That's it for the Appwrite setup. Now let's configure the app.
 
 ### App Configuration
@@ -63,6 +93,8 @@ That's it for the Appwrite setup. Now let's configure the app.
    EXPO_PUBLIC_PLATFORM=your_app_bundle_id
    EXPO_PUBLIC_REDIRECT_URL=your_appwrite_redirect_url
    ```
+
+> You will find the Redirect URL in your cloud function under the `Domain` tab. Paste the URL in the `EXPO_PUBLIC_REDIRECT_URL` field.
 
 3. Ensure you change the app name , app slug and bundle identifier in the `app.json` file.
 
