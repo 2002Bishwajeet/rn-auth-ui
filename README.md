@@ -121,6 +121,12 @@ That's it for the Appwrite setup. Now let's configure the app.
 
 4. If the app is already installed, `npm run start` should be fine for you
 
+## Screenshots
+
+| <img src=".github/screenshots/landing.png" width="500" > |<img src=".github/screenshots/login.png" width="500" > |
+|<img src=".github/screenshots/signup.png" width="500" > |<img src=".github/screenshots/forgotpassword.png" width="500" > |
+|<img src=".github/screenshots/resetpassword.png" width="500" > | <img src=".github/screenshots/home.png" width="500" >|
+
 ## Contributing
 
 Contributions are highly Welcomed 💙 . Feel free to open PRs for small issues such as typos. For large issues or features, please open an issue and wait for it to be assigned to you.
