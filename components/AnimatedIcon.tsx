@@ -11,10 +11,10 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import AppwriteIcon from './AppwriteIcon';
+import AppwriteIcon from './Icons/AppwriteIcon';
 import { appwritePink, reactBlue } from '@/constants/Colors';
 import { useState } from 'react';
-import ReactIcon from './ReactIcon';
+import ReactIcon from './Icons/ReactIcon';
 
 export default function AnimatedIcon() {
   const appwrite = useThemeColor({}, 'appwrite');

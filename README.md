@@ -42,9 +42,9 @@ Once you have the project setup, let's setup Appwrite Project and configure the 
 
 3. Once thats done, create a new project. Give it a name and a custom project Id.
 
-4. Add a new Ios and Android platform to the project. You can find the bundle identifier in the `app.json` file.
+4. Add a new ios and android platform to the project. You can find the bundle identifier in the `app.json` file.
 
-5. To Setup OAuth providers, go to the `Auth => Settings ` tab in the Appwrite dashboard and add the providers you want to use. Refer to their individual docs on how to setup the OAuth providers.
+5. To Setup OAuth providers, go to the `Auth => Settings` tab in the Appwrite dashboard and add the providers you want to use. Refer to their individual docs on how to setup the OAuth providers.
 
 #### Setup Cloud Function
 
@@ -67,7 +67,7 @@ APP_SCHEME=rnauth
 ```
 
 > [!IMPORTANT]
-> For security reasons, it is recommended to add the app_scheme in the function environment variable.
+> For security reasons, it is recommended to add the `APP_SCHEME` in the function environment variable.
 > This scheme is needed to redirect back to the app. You can find the scheme in the `app.json` file.
 > Without this it won't redirect back to your app
 

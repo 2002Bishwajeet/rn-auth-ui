@@ -11,7 +11,6 @@ import { useEffect, useRef } from 'react';
 import { Keyboard, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import Toast from 'react-native-root-toast';
 
-//TODO: Create a cloud function that redirects back to your app
 export default function ForgotPassword() {
   const passwordRef = useRef<InputMethods>(null);
   const confirmPasswordRef = useRef<InputMethods>(null);
@@ -31,10 +30,10 @@ export default function ForgotPassword() {
       return;
     }
     const currDate = new Date().getTime();
-    // expire=2024-08-16+09%3A24%3A29.590
-    // Sample expire Date. Clean it up and convert it to a number
+
     const decodedExpire = decodeURIComponent(expire);
     const expireDate = new Date(decodedExpire).getTime();
+
     // If the date is less than the current date, redirect to the login page
     if (currDate > expireDate) {
       Toast.show('Link has expired. Please Try again', {

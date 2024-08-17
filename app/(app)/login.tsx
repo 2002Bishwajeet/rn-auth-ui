@@ -66,8 +66,8 @@ export default function Login() {
     }
   };
 
+  // OAuth providers. Modify this to use other OAuth providers
   const loginWithGithub = async () => loginWithOAuth(OAuthProvider.Github);
-
   const loginWithFacebook = async () => loginWithOAuth(OAuthProvider.Facebook);
 
   const headerText = state === 'LOGIN' ? 'Log in' : 'Sign up';
@@ -169,8 +169,7 @@ export default function Login() {
           }}
         >
           {/*  This is where you can change the OAuth providers
-              Refer to Ionicons for the icon names
-        */}
+               Refer to Ionicons for the icon names */}
           <IconButton icon='logo-github' onPress={loginWithGithub} text='Github' />
           <IconButton icon='logo-facebook' onPress={loginWithFacebook} text='Facebook' />
         </View>
