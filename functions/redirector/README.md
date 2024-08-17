@@ -1,41 +1,28 @@
-# redirector
+# Redirector
+
+A simple Cloud function that redirects back to your app with the necessary query parameters.
 
 ## 🧰 Usage
 
 ### GET /
 
-- Returns a "Hello, World!" message.
+- Redirects to the app scheme with the necessary query parameters.
 
-**Response**
+**Parameters**
 
-Sample `200` Response:
-
-```text
-Hello, World!
-```
+| Name   | Description               | Location | type   | Sample Value |
+| ------ | ------------------------- | -------- | ------ | ------------ |
+| scheme | App Scheme to redirect to | Query    | string | rnauth://    |
 
 ### POST, PUT, PATCH, DELETE /
 
-- Returns a "Learn More" JSON response.
-
-**Response**
-
-Sample `200` Response:
-
-```json
-{
-  "motto": "Build like a team of hundreds_",
-  "learn": "https://appwrite.io/docs",
-  "connect": "https://appwrite.io/discord",
-  "getInspired": "https://builtwith.appwrite.io"
-}
-```
+- Returns `405 Method Not Allowed` error.
 
 ## ⚙️ Configuration
 
 | Setting           | Value           |
-|-------------------|-----------------|
-| Runtime           | Dart (3.1)     |
+| ----------------- | --------------- |
+| Runtime           | Dart (3.1)      |
 | Entrypoint        | `lib/main.dart` |
 | Build Commands    | `dart pub get`  |
 | Permissions       | `any`           |
@@ -43,4 +30,4 @@ Sample `200` Response:
 
 ## 🔒 Environment Variables
 
-No environment variables required.
+`APP_SCHEME` - Whitelisted app scheme
