@@ -4,7 +4,7 @@
 
 A beautiful auth template starter app built with React Native, Expo and Appwrite.
 
-> Blog: Coming soon
+> Check out the blog here: [How I built an auth template powered by react native](https://bishwajeet-parhi.medium.com/i-built-an-auth-template-powered-by-react-native-and-appwrite-4a0b7ee90ba6)
 
 ## What is Appwrite
 

@@ -60,7 +60,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const loginWithOAuth = async (provider: OAuthProvider) => {
-    //REFER : https://discord.com/channels/564160730845151244/1241035472017424404
+    // REFER: https://discord.com/channels/564160730845151244/1241035472017424404
     // https://github.com/appwrite/sdk-for-react-native/issues/10#issuecomment-2182781560
     // createOAuth2Session would not work as the cookies aren't being returned to the client.
     let redirectScheme = makeRedirectUri({ preferLocalhost: true });
